@@ -1,0 +1,19 @@
+{
+  "name": "lemonaid",
+  "version": "0.0.1",
+  "homepage": "https://github.com/bengoodger/lemonaid",
+  "authors": [
+    "Ben Goodger <ben@chromium.org>"
+  ],
+  "description": "Lemon Automation",
+  "main": "fe/index.html",
+  "license": "BSD",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

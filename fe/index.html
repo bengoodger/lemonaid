@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>lemonaid</title>
-<meta name="google-signin-clientid" content="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com">
-<meta name="google-signin-scope" content="profile">
-<meta name="google-signin-cookiepolicy" content="single_host_origin">
-</head>
-<body>
-	<button id="signinButton" style="display: none;">Sign in with Google</button>
-	<div id="user"></div>
-</body>
-<script type="text/javascript">
-(function() {
-   var po = document.createElement('script');
-   po.type = 'text/javascript';
-   po.async = true;
-   po.src = 'https://plus.google.com/js/client:plusone.js?onload=render';
-   var s = document.getElementsByTagName('script')[0];
-   s.parentNode.insertBefore(po, s);
-})();
+  <head>
+    <title>lemonaid</title>
+  </head>
+  <body>
+    <button id="signin-button" style="visibility: hidden">Sign in with Google</button>
+    <script type="text/javascript">
+      function makeAuthOptions(immediate) {
+        return {
+          'client_id': '551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/plus.me',
+          'immediate': immediate,
+        };
+      }
 
-var g_apiLoaded = false;
+      function init() {
+        window.setTimeout(checkAuth,1);
+      }
 
-function signin() {
-  var additionalParams = { 'callback': signinCallback };
-  gapi.auth.signIn(additionalParams);
-}
+      function checkAuth() {
+        gapi.auth.authorize(makeAuthOptions(true), handleAuthResult);
+      }
 
-function showProfileInfo() {
-  var request = gapi.client.plus.people.get({'userId': 'me'});
-  request.execute(function(profile) {
-    var userElement = document.querySelector('#user');
-    if (profile.error) {
-      signin();
-      return;
-    }
-    userElement.innerHTML = '<img src=\"' + profile.image.url +
-        '\"><p>' + profile.displayName;
-  });
-}
+      function handleAuthResult(authResult) {
+        var signinButton = document.querySelector('#signin-button');
+        if (authResult && !authResult.error) {
+          signinButton.style.visibility = 'hidden';
+          makeApiCall();
+        } else {
+          signinButton.style.visibility = '';
+          signinButton.onclick = handleAuthClick;
+        }
+      }
 
-function signinCallback(authResult) {
-  var signinButton = document.querySelector('#signinButton');
-	if (authResult['status']['signed_in']) {
-    signinButton.setAttribute('style', 'display: none;');
-    if (g_apiLoaded)
-      showProfileInfo();
- 	} else {
- 		console.log('Sign-in state: ' + authResult['error']);
-    signinButton.removeAttribute('style');
- 	}
-}
+      function handleAuthClick(event) {
+        gapi.auth.authorize(makeAuthOptions(false), handleAuthResult);
+        return false;
+      }
 
-function render() {
- 	var signinButton = document.getElementById('signinButton');
- 	signinButton.addEventListener('click', signin, false);
-  gapi.client.load('plus', 'v1', function() {
-    g_apiLoaded = true;
-    showProfileInfo();
-  })
-}
-</script>
+      function makeApiCall() {
+        gapi.client.load('plus', 'v1', function() {
+          var request = gapi.client.plus.people.get({
+            'userId': 'me'
+          });
+          request.execute(function(profile) {
+            var content = document.querySelector('#content');
+            content.innerHTML = '<h4><img src=\"' + profile.image.url + '\">' + profile.displayName;
+          });
+        });
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    <div id="content"></div>
+  </body>
 </html>

@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>lemonaid</title>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="components/signin-ui.html">
   </head>
   <body>
     <button id="signin-button" style="visibility: hidden">Sign in with Google</button>
@@ -46,11 +48,13 @@
           request.execute(function(profile) {
             var content = document.querySelector('#content');
             content.innerHTML = '<h4><img src=\"' + profile.image.url + '\">' + profile.displayName;
+            content.innerHTML += '<p>' + parseInt(profile.id).toString(16);
           });
         });
       }
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    <!-- <script src="https://apis.google.com/js/client.js?onload=init"></script> -->
     <div id="content"></div>
+    <lemonaid-signin-ui></lemonaid-signin-ui>
   </body>
 </html>

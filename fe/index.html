@@ -3,58 +3,35 @@
   <head>
     <title>lemonaid</title>
     <script src="bower_components/platform/platform.js"></script>
-    <link rel="import" href="components/signin-ui.html">
+    <link rel="import" href="bower_components/google-signin/google-signin.html">
   </head>
   <body>
-    <button id="signin-button" style="visibility: hidden">Sign in with Google</button>
-    <script type="text/javascript">
-      function makeAuthOptions(immediate) {
-        return {
-          'client_id': '551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com',
-          'scope': 'https://www.googleapis.com/auth/plus.me',
-          'immediate': immediate,
-        };
-      }
-
-      function init() {
-        window.setTimeout(checkAuth,1);
-      }
-
-      function checkAuth() {
-        gapi.auth.authorize(makeAuthOptions(true), handleAuthResult);
-      }
-
-      function handleAuthResult(authResult) {
-        var signinButton = document.querySelector('#signin-button');
-        if (authResult && !authResult.error) {
-          signinButton.style.visibility = 'hidden';
-          makeApiCall();
-        } else {
-          signinButton.style.visibility = '';
-          signinButton.onclick = handleAuthClick;
-        }
-      }
-
-      function handleAuthClick(event) {
-        gapi.auth.authorize(makeAuthOptions(false), handleAuthResult);
-        return false;
-      }
-
-      function makeApiCall() {
-        gapi.client.load('plus', 'v1', function() {
-          var request = gapi.client.plus.people.get({
-            'userId': 'me'
-          });
-          request.execute(function(profile) {
-            var content = document.querySelector('#content');
-            content.innerHTML = '<h4><img src=\"' + profile.image.url + '\">' + profile.displayName;
-            content.innerHTML += '<p>' + parseInt(profile.id).toString(16);
-          });
-        });
-      }
-    </script>
-    <!-- <script src="https://apis.google.com/js/client.js?onload=init"></script> -->
-    <div id="content"></div>
-    <lemonaid-signin-ui></lemonaid-signin-ui>
+    <google-signin clientId="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com"
+                   scopes="https://www.googleapis.com/auth/plus.me"
+                   cookiePolicy="single_host_origin"
+                   labelSignin="Sign in with Google"></google-signin>
+    <div id="verticals">
+      <div id="home">
+      </div>
+      <div id="rooms">
+      </div>
+      <div id="systems">
+        <div id="lights">
+          <ul>
+            <li>Light switches for the current room
+            <li>All lights
+          </ul>
+        </div>
+        <div id="av">
+          <ul>
+            <li>
+          </ul>
+        </div>
+        <div id="hvac"></div>
+        <div id="security"></div>
+        <div id="pool"></div>
+      </div>
+      <div id="settings"></div>      
+    </div>
   </body>
 </html>

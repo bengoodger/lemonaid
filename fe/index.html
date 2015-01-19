@@ -1,64 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>lemonaid</title>
-<meta name="google-signin-clientid" content="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com">
-<meta name="google-signin-scope" content="profile">
-<meta name="google-signin-cookiepolicy" content="single_host_origin">
-</head>
-<body>
-	<button id="signinButton" style="display: none;">Sign in with Google</button>
-	<div id="user"></div>
-</body>
-<script type="text/javascript">
-(function() {
-   var po = document.createElement('script');
-   po.type = 'text/javascript';
-   po.async = true;
-   po.src = 'https://plus.google.com/js/client:plusone.js?onload=render';
-   var s = document.getElementsByTagName('script')[0];
-   s.parentNode.insertBefore(po, s);
-})();
-
-var g_apiLoaded = false;
-
-function signin() {
-  var additionalParams = { 'callback': signinCallback };
-  gapi.auth.signIn(additionalParams);
-}
-
-function showProfileInfo() {
-  var request = gapi.client.plus.people.get({'userId': 'me'});
-  request.execute(function(profile) {
-    var userElement = document.querySelector('#user');
-    if (profile.error) {
-      signin();
-      return;
-    }
-    userElement.innerHTML = '<img src=\"' + profile.image.url +
-        '\"><p>' + profile.displayName;
-  });
-}
-
-function signinCallback(authResult) {
-  var signinButton = document.querySelector('#signinButton');
-	if (authResult['status']['signed_in']) {
-    signinButton.setAttribute('style', 'display: none;');
-    if (g_apiLoaded)
-      showProfileInfo();
- 	} else {
- 		console.log('Sign-in state: ' + authResult['error']);
-    signinButton.removeAttribute('style');
- 	}
-}
-
-function render() {
- 	var signinButton = document.getElementById('signinButton');
- 	signinButton.addEventListener('click', signin, false);
-  gapi.client.load('plus', 'v1', function() {
-    g_apiLoaded = true;
-    showProfileInfo();
-  })
-}
-</script>
+  <head>
+    <title>lemonaid</title>
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="bower_components/google-signin/google-signin.html">
+  </head>
+  <body>
+    <google-signin clientId="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com"
+                   scopes="https://www.googleapis.com/auth/plus.me"
+                   cookiePolicy="single_host_origin"
+                   labelSignin="Sign in with Google"></google-signin>
+    <div id="verticals">
+      <div id="home">
+      </div>
+      <div id="rooms">
+      </div>
+      <div id="systems">
+        <div id="lights">
+          <ul>
+            <li>Light switches for the current room
+            <li>All lights
+          </ul>
+        </div>
+        <div id="av">
+          <ul>
+            <li>
+          </ul>
+        </div>
+        <div id="hvac"></div>
+        <div id="security"></div>
+        <div id="pool"></div>
+      </div>
+      <div id="settings"></div>      
+    </div>
+  </body>
 </html>

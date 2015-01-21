@@ -41,18 +41,20 @@ function writeJSONHead(response) {
 
 
 
-function LutronOutput(id, integrationId, level) {
+function LutronOutput(integrationId, level) {
   this.type = "output";
-  this.id = id;
   this.integrationId = integrationId;
   this.level = level;
 }
 
-function LutronDevice(id, integrationId, ledCount) {
+function LutronDevice(integrationId, ledCount) {
   this.type = "device";
-  this.id = id;
   this.integrationId = integrationId;
   this.leds = new Array(ledCount);
+}
+
+function integrationIdKey(integrationId) {
+  return "IntegrationId:" + integrationId;
 }
 
 function LutronConnection(devices) {
@@ -61,8 +63,7 @@ function LutronConnection(devices) {
   // messages which are only in terms of integration ids.
   this.integrationIdToDevice = {};
   for (var deviceName in this.devices) {
-    var key = "IntegrationID:" + this.devices[deviceName].integrationId;
-    console.log("DEV:  "  + key);
+    var key = integrationIdKey(this.devices[deviceName].integrationId);
     this.integrationIdToDevice[key] = deviceName;
   }
 
@@ -70,8 +71,23 @@ function LutronConnection(devices) {
 }
 
 LutronConnection.prototype.logDevice = function(device) {
-  var str = util.format("Device=%s IntegrationId=%d Level=%d",
-                        device.id, device.integrationId, device.level);
+  var key = integrationIdKey(device.integrationId);
+  var str = "";
+  switch (device.type) {
+    case "output":
+      str = util.format("Device=%s IntegrationId=%d Level=%d",
+                        this.integrationIdToDevice[key], device.integrationId,
+                        device.level);
+      break;
+    case "device":
+      var leds = device.leds.join(",");
+      str = util.format("Device=%s IntegrationId=%d Leds=%s",
+                        this.integrationIdToDevice[key], device.integrationId,
+                        leds);
+      break;
+    default:
+      break;
+  }
   console.log(str);
 }
 
@@ -88,22 +104,39 @@ LutronConnection.prototype.reconnect = function() {
   setTimeout(this.connect.bind(this), 1000);
 }
 
+LutronConnection.prototype.getDeviceForIntegrationId = function(integrationId) {
+  var key = integrationIdKey(integrationId);
+  if (key in this.integrationIdToDevice) {
+    var deviceName = this.integrationIdToDevice[key];
+    return this.devices[deviceName];
+  }
+  return null;
+}
+
 LutronConnection.prototype.parseData = function(data) {
   var data = data.split("\r\n").shift();
-  console.log("Lutron: data = ||" + data + "||");
+  if (data.substring(0, 5) == "QNET>")
+    data = data.substring(5);
+  data = data.trim();
+  if (data == "")
+    return;
+  console.log("Lutron: data = |" + data + "|");
   var params = data.split(",");
-  var prefix = params[0];
-  var integrationId = params[1];
-  switch (prefix) {
+  var device = this.getDeviceForIntegrationId(params[1]);
+  if (device)
+    this.logDevice(device);
+  
+  switch (params[0]) {
   case "~OUTPUT":
-    var key = "IntegrationID:" + integrationId;
-    if (key in this.integrationIdToDevice) {
-      var deviceName = this.integrationIdToDevice[key];
-      this.devices[deviceName].level = params[3];
-      this.logDevice(this.devices[deviceName]);
-    }
+    if (device && (params[2] == 1))
+      device.level = params[3];
     break;
   case "~DEVICE":
+    if (device) {
+      var ledIndex = params[3] - 81;
+      if (ledIndex >= 0 && ledIndex < device.leds.length)
+        device.leds[ledIndex] = params[4];
+    }
     break;
   default:
     break;
@@ -119,11 +152,15 @@ LutronConnection.prototype.handleConnected = function() {
     var device = this.devices[deviceName];
     switch (device.type) {
     case "output":
-      this.client.write("?OUTPUT," + [device.integrationId, 1].join(","));
+      var command = "?OUTPUT," + [device.integrationId, 1].join(",") + "\r\n";
+      this.client.write(command);
       break;
     case "device":
-      for (var i = 0; i < device.leds.length; ++i)
-        this.client.write("?DEVICE," + [device.integrationId, 81+i, 9].join(","));
+      for (var i = 0; i < device.leds.length; ++i) {
+        var command = "?DEVICE," + [device.integrationId, 81+i, 9].join(",") +
+            "\r\n";
+        this.client.write(command);
+      }
       break;
     }
   }
@@ -134,11 +171,9 @@ LutronConnection.prototype.handleData = function(data) {
   data += "";
   switch (data.trim()) {
   case "login:":
-    console.log("Writing username...");
     this.client.write("lutron\r\n", "UTF8");
     break;
   case "password:":
-    console.log("Writing password...");
     this.client.write("integration\r\n", "UTF8");
     this.handleConnected();
     break;
@@ -154,7 +189,10 @@ LutronConnection.prototype.handleError = function() {
 }
 
 var gDevices = {};
-gDevices["FrontPorch_Pendants"] = new LutronOutput("FrontPorch_Pendants", 14, 0);
+gDevices["FrontPorch_Pendants"] = new LutronOutput(14, 0);
+gDevices["FrontPorch_Sconces"] = new LutronOutput(15, 0);
+gDevices["Kitchen_MudRoom_Switch"] = new LutronDevice(60, 6);
+gDevices["MudRoom_Garage_Switch"] = new LutronDevice(49, 6);
 
 var lutronConnection = new LutronConnection(gDevices);
 

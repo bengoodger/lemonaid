@@ -2,6 +2,7 @@ var http = require('http');
 var net = require('net');
 var os = require('os');
 var fs = require('fs');
+var util = require('util');
 
 function getLocalIPAddress() {
   var interfaces = os.networkInterfaces();
@@ -38,8 +39,40 @@ function writeJSONHead(response) {
   response.writeHead(200, {"Content-Type": "application/json"});
 }
 
-function LutronConnection() {
+
+
+function LutronOutput(id, integrationId, level) {
+  this.type = "output";
+  this.id = id;
+  this.integrationId = integrationId;
+  this.level = level;
+}
+
+function LutronDevice(id, integrationId, ledCount) {
+  this.type = "device";
+  this.id = id;
+  this.integrationId = integrationId;
+  this.leds = new Array(ledCount);
+}
+
+function LutronConnection(devices) {
+  this.devices = devices !== undefined ? devices : {};
+  // Build a reverse mapping so we can update our model from Lutron response
+  // messages which are only in terms of integration ids.
+  this.integrationIdToDevice = {};
+  for (var deviceName in this.devices) {
+    var key = "IntegrationID:" + this.devices[deviceName].integrationId;
+    console.log("DEV:  "  + key);
+    this.integrationIdToDevice[key] = deviceName;
+  }
+
   this.connect();
+}
+
+LutronConnection.prototype.logDevice = function(device) {
+  var str = util.format("Device=%s IntegrationId=%d Level=%d",
+                        device.id, device.integrationId, device.level);
+  console.log(str);
 }
 
 LutronConnection.prototype.connect = function() {
@@ -55,8 +88,64 @@ LutronConnection.prototype.reconnect = function() {
   setTimeout(this.connect.bind(this), 1000);
 }
 
+LutronConnection.prototype.parseData = function(data) {
+  var data = data.split("\r\n").shift();
+  console.log("Lutron: data = ||" + data + "||");
+  var params = data.split(",");
+  var prefix = params[0];
+  var integrationId = params[1];
+  switch (prefix) {
+  case "~OUTPUT":
+    var key = "IntegrationID:" + integrationId;
+    if (key in this.integrationIdToDevice) {
+      var deviceName = this.integrationIdToDevice[key];
+      this.devices[deviceName].level = params[3];
+      this.logDevice(this.devices[deviceName]);
+    }
+    break;
+  case "~DEVICE":
+    break;
+  default:
+    break;
+  }
+}
+
+LutronConnection.prototype.command = function(id, level) {
+  this.client.write("#DEVICE,60,1,3\r\n");
+}
+
+LutronConnection.prototype.handleConnected = function() {
+  for (var deviceName in this.devices) {
+    var device = this.devices[deviceName];
+    switch (device.type) {
+    case "output":
+      this.client.write("?OUTPUT," + [device.integrationId, 1].join(","));
+      break;
+    case "device":
+      for (var i = 0; i < device.leds.length; ++i)
+        this.client.write("?DEVICE," + [device.integrationId, 81+i, 9].join(","));
+      break;
+    }
+  }
+}
+
 LutronConnection.prototype.handleData = function(data) {
-  console.log("Lutron: data: " + data);
+  // Coerce stringiness
+  data += "";
+  switch (data.trim()) {
+  case "login:":
+    console.log("Writing username...");
+    this.client.write("lutron\r\n", "UTF8");
+    break;
+  case "password:":
+    console.log("Writing password...");
+    this.client.write("integration\r\n", "UTF8");
+    this.handleConnected();
+    break;
+  default:
+    this.parseData(data);
+    break;
+  }
 }
 
 LutronConnection.prototype.handleError = function() {
@@ -64,7 +153,10 @@ LutronConnection.prototype.handleError = function() {
   this.reconnect();
 }
 
-var lutronConnection = new LutronConnection();
+var gDevices = {};
+gDevices["FrontPorch_Pendants"] = new LutronOutput("FrontPorch_Pendants", 14, 0);
+
+var lutronConnection = new LutronConnection(gDevices);
 
 http.createServer(function(request, response) {
   if (request.url.endsWith("/lutron/command")) {

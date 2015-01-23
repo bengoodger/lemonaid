@@ -31,6 +31,19 @@ function genMsg(command) {
   return header + command + '\r';
 }
 
+
+function genMsg2(command) {
+  //var header = jspack.jspack.Pack('! 4s I I b 4b', 'ISCP', 16, command.length, 0x1, 0x0, 0x0, 0x0);
+  //console.log("HEADER: " + header);
+  var header = "ISCP\x00\x00\x00\x10\x00\x00\x00\x0A\x01\x00\x00\x00";
+  return header + command + '\r';
+}
+
+function trimHeader2(command) {
+  var header = "ISCP\x00\x00\x00\x10\x00\x00\x00\x0A\x01\x00\x00\x00";
+  return command.substring(header.length).trim();
+}
+
 function writeHTMLHead(response) {
   response.writeHead(200, {"Content-Type": "text/html"});
 }
@@ -196,6 +209,32 @@ gDevices["MudRoom_Garage_Switch"] = new LutronDevice(49, 6);
 
 var lutronConnection = new LutronConnection(gDevices);
 
+var iTachClient = null;
+var iTachClientConnected = false;
+
+function powerReceiverOn() {
+  var client = net.connect(60128, "10.1.10.10", function () {
+    console.log(genMsg("!1PWR01\r"));
+    client.write(genMsg("!1PWR01\r"));
+  });  
+}
+
+function powerReceiverOff() {
+  var client2 = net.connect(60128, "10.1.10.10", function () {
+    client2.write(genMsg("!1PWR00\r"));
+  });
+}
+
+function powerTVOn() {
+  iTachClient.write(new Buffer([0x8, 0x22, 0x0, 0x0, 0x0, 0x2, 0xd6]));
+  powerReceiverOn();
+}
+
+function powerTVOff() {
+  iTachClient.write(new Buffer([0x8, 0x22, 0x0, 0x0, 0x0, 0x1, 0xd5])); 
+  powerReceiverOff();
+}
+
 http.createServer(function(request, response) {
   if (request.url.endsWith("/lutron/command")) {
     if (request.method == "POST" &&
@@ -226,18 +265,63 @@ http.createServer(function(request, response) {
       response.write(data);
       response.end();
     });
+  } else if (request.url.endsWith("/tv")) {
+    fs.readFile("../fe/tv.html", "utf8", function(error, data) {
+      if (error)
+        return console.log(error);
+      writeHTMLHead(response);
+      response.write(data);
+      response.end();
+    });
+  } else if (request.url.endsWith("/receiverPowerState")) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    var client = net.connect(60128, "10.1.10.10", function() {
+      console.log("HELLO");
+      client.write(genMsg2("!1AMTQSTN\r"));
+    });
+    client.on('data', function(data) {
+      var sub = data.slice(16);
+      sub = sub.slice(0, sub.length - 3);
+console.log("data " + sub);
+      //console.log("STR: "+ str.length + " STR: " + str);
+      //console.log("ResponseData: " + trimHeader2(data + "") + "\n");
+    });
+    client.on('close', function(error) {
+      console.log("++++ONCLOSE");
+    });
+    client.on('error', function(error) {
+      console.log("++++ONERROR");
+    });
+    response.end("Foo");
+  } else if (request.url.endsWith("/tvOn")) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end("TV ON!");
+    if (!iTachClientConnected) {
+      iTachClient = net.connect(4999, "10.1.10.51", function() {
+        iTachClientConnected = true;
+        powerTVOn();
+      });
+    } else {
+      powerTVOn();
+    }
+  } else if (request.url.endsWith("/tvOff")) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end("TV ON!");
+    if (!iTachClientConnected) {
+      iTachClient = net.connect(4999, "10.1.10.51", function() {
+        iTachClientConnected = true;
+        powerTVOff();
+      });
+    } else {
+      powerTVOff();
+    }
   } else if (request.url.endsWith("/receiverOn")) {
     response.writeHead(200, {'Content-Type': 'text/plain'})
-    var client = net.connect(60128, "10.1.10.10", function () {
-      console.log(genMsg("!1PWR01\r"));
-      client.write(genMsg("!1PWR01\r"));
-    });
+    powerReceiverOn();
     response.end('Turn receiver on\n');
   } else if (request.url.endsWith("/receiverOff")) {
     response.writeHead(200, {'Content-Type': 'text/plain'})
-    var client2 = net.connect(60128, "10.1.10.10", function () {
-      client2.write(genMsg("!1PWR00\r"));
-    });
+    powerReceiverOff();
     response.end('Turn receiver off\n');
   } else {
     response.writeHead(200, {'Content-Type': 'text/plain'})

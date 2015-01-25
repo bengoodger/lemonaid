@@ -1,0 +1,35 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="lemonaid-signin-ui">
+  <script src="https://apis.google.com/js/client.js"></script>
+  <script>
+    Polymer('lemonaid-signin-ui', {
+      attached: function() {
+        window.addEventListener('load', this.documentLoad, false);
+      },
+
+      documentLoad: function() {
+        window.setTimeout(this.checkAuth, 1);
+      },
+
+      checkAuth: function() {
+        window.alert('foo');
+        gapi.auth.authorize(this.makeAuthOptions(true), this.handleAuthResult);
+      },
+
+      makeAuthOptions: function(immediate) {
+        return {
+          'client_id': '551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/plus.me',
+          'immediate': immediate,
+        };
+      },
+
+      handleAuthResult: function(authResult) {
+        window.alert('AuthResult: ' + authResult);
+      },
+
+    })
+  </script>
+
+

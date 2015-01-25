@@ -1,0 +1,32 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="lemonaid-integra" attributes="devicename">
+<template>
+  <div id="group">
+    <button id="On">Receiver On</button>
+    <button id="Off">Receiver Off</button>
+    <button id="VolumeUp">Volume+</button>
+    <button id="VolumeDown">Volume-</button>
+    <button id="MuteOn">Mute</button>
+    <button id="MuteOff">Un-mute</button>
+  </div>
+</template>
+<script>
+
+  Polymer('lemonaid-integra', {
+    publish: {
+      socket: null,
+    },
+    devicename: "",
+    ready: function() {
+      this.shadowRoot.querySelector("#group").addEventListener(
+          "click", this.handleClick.bind(this), false);
+    },
+    handleClick: function(event) {
+      var commandName = this.devicename + "." + event.target.id;
+      window.socket.emit("DeviceEvent", commandName);
+    }
+  });
+  
+</script>
+</polymer-element>

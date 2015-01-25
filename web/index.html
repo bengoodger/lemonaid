@@ -2,36 +2,80 @@
 <html>
   <head>
     <title>lemonaid</title>
-    <script src="bower_components/platform/platform.js"></script>
-    <link rel="import" href="bower_components/google-signin/google-signin.html">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect();
+      socket.on('disconnect', function() {
+        socket.socket.connect();
+      });
+    </script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="lemonaid-integra.html">
+    <link rel="import" href="lemonaid-samsung.html">
+    <link rel="import" href="lemonaid-tivo.html">
   </head>
   <body>
+    <!--
     <google-signin clientId="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com"
                    scopes="https://www.googleapis.com/auth/plus.me"
                    cookiePolicy="single_host_origin"
                    labelSignin="Sign in with Google"></google-signin>
-    <div id="verticals">
-      <div id="home">
+    -->
+    <div id="home">
+      <a name="home"><h1>Home</h1></a>
+    </div>
+    <div id="sonos">
+      <a name="sonos"><h1>Sonos</h1></a>
+    </div>
+    <div id="livingroom">
+      <a name="livingroom"><h1>Living Room</h1></a>
+      <div id="watchtv">
+        <a name="livingroom.tv"><h2>Watch TV</h2></a>
+        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+        <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
       </div>
-      <div id="rooms">
+      <div id="playgame">
+        <a name="livingroom.game"><h2>Play Game</h2></a>
+        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
       </div>
-      <div id="systems">
-        <div id="lights">
-          <ul>
-            <li>Light switches for the current room
-            <li>All lights
-          </ul>
+      <div id="bluray">
+        <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
+        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+      </div>
+      <div id="chromecast">
+        <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
+        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+      </div>
+      <div id="devices">
+        <div id="device.tv">
+          <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
+          <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
         </div>
-        <div id="av">
-          <ul>
-            <li>
-          </ul>
+        <div id="device.receiver">
+          <a name="livingroom.device.receiver"><h3>Living Room Receiver</h3></a>
+          <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
         </div>
-        <div id="hvac"></div>
-        <div id="security"></div>
-        <div id="pool"></div>
+        <div id="device.tivo">
+          <a name="livingroom.device.tivo"><h3>Living Room Tivo</h3></a>
+          <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
+        </div>
+        <div id="device.bluray">
+          <a name="livingroom.device.bluray"><h3>Living Room Blu Ray</h3></a>
+        </div>
       </div>
-      <div id="settings"></div>      
+    </div>
+    <div id="master">
+      <a name="master"><h1>Master Suite</h1></a>
+    </div>
+    <div id="lighting">
+      <a name="lighting"><h1>Lighting</h1></a>
+    </div>      
+    <div id="security">
+      <a name="security"><h1>Security</h1></a>
     </div>
   </body>
 </html>

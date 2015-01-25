@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TV Control</title>
+<script>
+
+var tvOn = false;
+
+function TurnTVOn() {
+  var url = tvOn ? "/tvOff" : "/tvOn";
+  tvOn = !tvOn;
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", url, true);
+  xhr.send("");
+}
+
+</script>
+</head>
+<body>
+<button onclick="TurnTVOn();">TV Power</button>
+</body>
+</html>

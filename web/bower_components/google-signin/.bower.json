@@ -1,0 +1,31 @@
+{
+  "name": "google-signin",
+  "version": "0.0.8",
+  "description": "Web components to authenticate with Google services",
+  "dependencies": {
+    "polymer": "Polymer/polymer#master",
+    "google-apis": "PolymerLabs/google-apis#master",
+    "polymer-signals": "PolymerLabs/polymer-signals#master"
+  },
+  "authors": [
+    "Addy Osmani"
+  ],
+  "license": "Apache2",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "sign-in",
+    "google"
+  ],
+  "homepage": "https://github.com/GoogleWebComponents/google-signin",
+  "_release": "0.0.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.8",
+    "commit": "e51551ea2e928f4f881cd863a9f624bfc5847d86"
+  },
+  "_source": "git://github.com/GoogleWebComponents/google-signin.git",
+  "_target": "~0.0.7",
+  "_originalSource": "GoogleWebComponents/google-signin"
+}

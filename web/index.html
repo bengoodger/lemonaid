@@ -11,7 +11,7 @@
     </script>
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="lemonaid-integra.html">
-    <link rel="import" href="lemonaid-lutron-livingroom.html">
+    <link rel="import" href="lemonaid-lutron-scheme.html">
     <link rel="import" href="lemonaid-samsung.html">
     <link rel="import" href="lemonaid-tivo.html">
   </head>
@@ -56,7 +56,23 @@
       </div>
       <div id="lutron">
         <a name="livingroom.lutron"><h2>Lighting</h2></a>
-        <lemonaid-lutron-livingroom deviceName="Lutron"></lemonaid-lutron-livingroom>
+        <h3>Living Room</h3>
+        <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.40 Lutron.FamilyRoomChandelier.50">Chill</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.90 Lutron.FamilyRoomChandelier.90">Bright</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.Off Lutron.FamilyRoomChandelier.Off">Off</lemonaid-lutron-scheme>
+        <h3>Kitchen</h3>
+        <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.0 Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.25 Lutron.KitchenCabinets.Off">Super Chill</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.50 Lutron.KitchenRecessed.40 Lutron.KitchenIslandPendants.60 Lutron.KitchenCabinets.40">Chill</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.90 Lutron.KitchenRecessed.90 Lutron.KitchenIslandPendants.90 Lutron.KitchenCabinets.90">Bright</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.Off Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.Off Lutron.KitchenCabinets.Off">Off</lemonaid-lutron-scheme>
+        <h3>Dining Room</h3>
+        <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.50 Lutron.DiningRoomRecessed.40 Lutron.DiningRoomCove.50">Chill</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.90 Lutron.DiningRoomRecessed.90 Lutron.DiningRoomCove.90">Bright</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.Off Lutron.DiningRoomRecessed.Off Lutron.DiningRoomCove.Off">Off</lemonaid-lutron-scheme>
+        <h3>Foyer</h3>
+        <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.50 Lutron.FoyerSconces.50">Chill</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.90 Lutron.FoyerSconces.90">Bright</lemonaid-lutron-scheme>
+        <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.Off Lutron.FoyerSconces.Off">Off</lemonaid-lutron-scheme>
       </div>
       <div id="devices">
         <a name="livingroom.devices"><h2>Devices</h2></a>

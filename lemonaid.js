@@ -122,6 +122,20 @@ route.addEventMap({
     "FamilyRoomReceiver.On",
     "FamilyRoomTivo.TeleportNowPlaying"
   ],
+  "Web.FamilyRoom.WatchMovie" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomTivo.TeleportNowPlaying",
+    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.KitchenCabinets.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomChandelier.Off",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomRecessed.Off"
+  ],
   "Web.FamilyRoom.Off" : [
     "FamilyRoomTV.Off",
     "FamilyRoomReceiver.Off"

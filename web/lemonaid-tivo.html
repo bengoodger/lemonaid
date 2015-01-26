@@ -1,7 +1,8 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 
-<polymer-element name="lemonaid-tivo" attributes="devicename">
+<polymer-element name="lemonaid-tivo" attributes="deviceName">
 <template>
+  <link rel="stylesheet" type="text/css" href="lemonaid.css">
   <div id="group">
     <button id="TeleportTivo">Tivo Home</button>
     <button id="TeleportLiveTV">Live TV</button>
@@ -41,14 +42,14 @@
 <script>
 
   Polymer('lemonaid-tivo', {
-    devicename: "",
+    deviceName: "",
     ready: function() {
       this.shadowRoot.querySelector("#group").addEventListener(
           "click", this.handleClick.bind(this), false);
     },
     handleClick: function(event) {
-      var commandName = this.devicename + "." + event.target.id;
-      console.log("ETN: " + commandName);
+      var commandName = this.deviceName + "." + event.target.id;
+      console.log("lemonaid-tivo > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }
   });

@@ -11,6 +11,7 @@
     </script>
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="lemonaid-integra.html">
+    <link rel="import" href="lemonaid-lutron-livingroom.html">
     <link rel="import" href="lemonaid-samsung.html">
     <link rel="import" href="lemonaid-tivo.html">
   </head>
@@ -32,38 +33,44 @@
       <div id="watchtv">
         <a name="livingroom.tv"><h2>Watch TV</h2></a>
         <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
+        <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
         <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
-        <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
+        <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+        <lemonaid-tivo deviceName="FamilyRoomTivo"></lemonaid-tivo>
       </div>
       <div id="playgame">
         <a name="livingroom.game"><h2>Play Game</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+        <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
       </div>
       <div id="bluray">
         <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+        <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
       </div>
       <div id="chromecast">
         <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+        <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+        <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+      </div>
+      <div id="lutron">
+        <a name="livingroom.lutron"><h2>Lighting</h2></a>
+        <lemonaid-lutron-livingroom deviceName="Lutron"></lemonaid-lutron-livingroom>
       </div>
       <div id="devices">
+        <a name="livingroom.devices"><h2>Devices</h2></a>
         <div id="device.tv">
           <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
-          <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+          <lemonaid-samsung deviceName="FamilyRoomTV" deviceView="true"></lemonaid-samsung>
         </div>
         <div id="device.receiver">
           <a name="livingroom.device.receiver"><h3>Living Room Receiver</h3></a>
-          <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+          <lemonaid-integra deviceName="FamilyRoomReceiver" deviceView="true"></lemonaid-integra>
         </div>
         <div id="device.tivo">
           <a name="livingroom.device.tivo"><h3>Living Room Tivo</h3></a>
-          <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
+          <lemonaid-tivo deviceName="FamilyRoomTivo" deviceView="true"></lemonaid-tivo>
         </div>
         <div id="device.bluray">
           <a name="livingroom.device.bluray"><h3>Living Room Blu Ray</h3></a>

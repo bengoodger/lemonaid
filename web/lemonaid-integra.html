@@ -1,31 +1,34 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 
-<polymer-element name="lemonaid-integra" attributes="devicename">
+<polymer-element name="lemonaid-integra" attributes="deviceName deviceView hasAudio">
 <template>
+  <link rel="stylesheet" type="text/css" href="lemonaid.css">
   <div id="group">
-    <div id="ReceiverPower" hidden="{{!device-view}}">
+    <div id="ReceiverPower" hidden?="{{!deviceView}}">
       <button id="On">Receiver On</button>
       <button id="Off">Receiver Off</button>
     </div>
-    <button id="VolumeUp">Volume+</button>
-    <button id="VolumeDown">Volume-</button>
-    <button id="MuteOn">Mute</button>
-    <button id="MuteOff">Un-mute</button>
+    <div id="ReceiverAudio" hidden?="{{!hasAudio}}">
+      <button id="VolumeUp">Volume+</button>
+      <button id="VolumeDown">Volume-</button>
+      <button id="MuteOn">Mute</button>
+      <button id="MuteOff">Un-mute</button>
+    </div>
   </div>
 </template>
 <script>
 
   Polymer('lemonaid-integra', {
-    publish: {
-      socket: null,
-    },
-    devicename: "",
+    hasAudio: false,
+    deviceView: false,
+    deviceName: "",
     ready: function() {
       this.shadowRoot.querySelector("#group").addEventListener(
           "click", this.handleClick.bind(this), false);
     },
     handleClick: function(event) {
-      var commandName = this.devicename + "." + event.target.id;
+      var commandName = this.deviceName + "." + event.target.id;
+      console.log("lemonaid-integra > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }
   });

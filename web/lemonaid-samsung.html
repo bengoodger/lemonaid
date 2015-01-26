@@ -1,13 +1,15 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 
-<polymer-element name="lemonaid-samsung" attributes="devicename has-audio">
+<polymer-element name="lemonaid-samsung" attributes="deviceName deviceView hasAudio">
 <template>
+  <link rel="stylesheet" type="text/css" href="lemonaid.css">
+
   <div id="group">
-    <div id="TVPower" hidden="{{!device-view}}">
+    <div id="TVPower" hidden?="{{!deviceView}}">
       <button id="On">TV On</button>
       <button id="Off">TV Off</button>
     </div>
-    <div id="TVAudio" hidden="{{!has-audio}}">
+    <div id="TVAudio" hidden?="{{!hasAudio}}">
       <button id="VolumeUp">Volume+</button>
       <button id="VolumeDown">Volume-</button>
       <button id="Mute">Mute</button>
@@ -17,17 +19,16 @@
 <script>
 
   Polymer('lemonaid-samsung', {
-    publish: {
-      socket: null,
-    },
-    devicename: "",
+    hasAudio: false,
+    deviceView: false,
+    deviceName: "",
     ready: function() {
       this.shadowRoot.querySelector("#group").addEventListener(
           "click", this.handleClick.bind(this), false);
     },
     handleClick: function(event) {
-      var commandName = this.devicename + "." + event.target.id;
-      console.log("EMIT: " + commandName);
+      var commandName = this.deviceName + "." + event.target.id;
+      console.log("lemonaid-samsung > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }
   });

@@ -117,6 +117,16 @@ route.addEventMap({
   //
   //"Sonos.Kitchen.Started" : "Denon.Switch.Sonos",
 
+  "Web.FamilyRoom.WatchTV" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomTivo.TeleportNowPlaying"
+  ],
+  "Web.FamilyRoom.Off" : [
+    "FamilyRoomTV.Off",
+    "FamilyRoomReceiver.Off"
+  ],
+
   //  Hard-coded web switches for media (TV/Speakers)
   //"Web.Kitchen.Sonos" : "Denon.Switch.Sonos",
   "Web.LivingRoom.ChromeCast" : [

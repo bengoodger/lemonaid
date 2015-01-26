@@ -3,8 +3,10 @@
 <polymer-element name="lemonaid-samsung" attributes="devicename has-audio">
 <template>
   <div id="group">
-    <button id="On">TV On</button>
-    <button id="Off">TV Off</button>
+    <div id="TVPower" hidden="{{!device-view}}">
+      <button id="On">TV On</button>
+      <button id="Off">TV Off</button>
+    </div>
     <div id="TVAudio" hidden="{{!has-audio}}">
       <button id="VolumeUp">Volume+</button>
       <button id="VolumeDown">Volume-</button>
@@ -25,6 +27,7 @@
     },
     handleClick: function(event) {
       var commandName = this.devicename + "." + event.target.id;
+      console.log("EMIT: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }
   });

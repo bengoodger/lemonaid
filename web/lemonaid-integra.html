@@ -3,8 +3,10 @@
 <polymer-element name="lemonaid-integra" attributes="devicename">
 <template>
   <div id="group">
-    <button id="On">Receiver On</button>
-    <button id="Off">Receiver Off</button>
+    <div id="ReceiverPower" hidden="{{!device-view}}">
+      <button id="On">Receiver On</button>
+      <button id="Off">Receiver Off</button>
+    </div>
     <button id="VolumeUp">Volume+</button>
     <button id="VolumeDown">Volume-</button>
     <button id="MuteOn">Mute</button>

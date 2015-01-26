@@ -31,6 +31,8 @@
       <a name="livingroom"><h1>Living Room</h1></a>
       <div id="watchtv">
         <a name="livingroom.tv"><h2>Watch TV</h2></a>
+        <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
+        <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
         <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
         <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
         <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>

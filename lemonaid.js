@@ -117,14 +117,17 @@ route.addEventMap({
   //
   //"Sonos.Kitchen.Started" : "Denon.Switch.Sonos",
 
+// InputVideo1 == chromecast
   "Web.FamilyRoom.WatchTV" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo2",
     "FamilyRoomTivo.TeleportNowPlaying"
   ],
   "Web.FamilyRoom.WatchMovie" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo2",
     "FamilyRoomTivo.TeleportNowPlaying",
     "Lutron.KitchenSinkAndNook.Off",
     "Lutron.KitchenRecessed.Off",
@@ -135,6 +138,12 @@ route.addEventMap({
     "Lutron.DiningRoomCove.Off",
     "Lutron.FamilyRoomChandelier.Off",
     "Lutron.FamilyRoomRecessed.Off"
+  ],
+  "Web.FamilyRoom.PlayGame" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo3",
+    "FamilyRoomTivo.TeleportNowPlaying"
   ],
   "Web.FamilyRoom.Off" : [
     "FamilyRoomTV.Off",

@@ -1,0 +1,25 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="lemonaid-lutron-switch.html">
+
+
+<polymer-element name="lemonaid-lutron-livingroom" attributes="deviceName">
+<template>
+  <link rel="stylesheet" type="text/css" href="lemonaid.css">
+  <div id="group">
+    <lemonaid-lutron-switch deviceName="Lutron.FamilyRoomRecessed" onBrightness="40" label="Living Room Recessed"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.FamilyRoomChandelier" onBrightness="75" label="Living Room Chandelier"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.KitchenIslandPendants" onBrightness="75" label="Kitchen Island"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.KitchenRecessed" onBrightness="75" label="Kitchen Recessed"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.KitchenSinkAndNook" onBrightness="75" label="Kitchen Sink/Nook"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.KitchenCabinets" onBrightness="75" label="Kitchen Cabinets"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.DiningRoomChandelier" onBrightness="75" label="Dining Room Chandelier"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.DiningRoomRecessed" onBrightness="75" label="Dining Room Recessed"></lemonaid-lutron-switch>
+    <lemonaid-lutron-switch deviceName="Lutron.DiningRoomCove" onBrightness="75" label="Dining Room Cove/China Cabinet"></lemonaid-lutron-switch>
+  </div>
+</template>
+<script>
+
+  Polymer('lemonaid-lutron-livingroom');
+  
+</script>
+</polymer-element>

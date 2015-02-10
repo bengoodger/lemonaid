@@ -18,19 +18,43 @@ var route = Route.create();
 var livingroom_tv = route.addDevice({
   type : SamsungExLink,
   name : "FamilyRoomTV",
-  init : { host: "10.1.10.51" }
+  init : { host: "10.1.10.209" }
+});
+
+var masterbedroom_tv = route.addDevice({
+  type : SamsungExLink,
+  name : "MasterBedroomTV",
+  init : { host: "10.1.10.213" }
+});
+
+var masterbathroom_tv = route.addDevice({
+  type : SamsungExLink,
+  name : "MasterBathTV",
+  init : { host: "10.1.10.214" }
+});
+
+var mastersuite_receiver = route.addDevice({
+  type : Integra,
+  name : "MasterSuiteReceiver",
+  init : { host: "10.1.10.45" }
+});
+
+var mastersuite_tivo = route.addDevice({
+  type : Tivo,
+  name : "MasterSuiteTivo",
+  init : { host: "10.1.10.31" }
 });
 
 var livingroom_receiver = route.addDevice({
   type : Integra,
   name : "FamilyRoomReceiver",
-  init : { host: "10.1.10.10" }
+  init : { host: "10.1.10.206" }
 });
 
 var livingroom_tivo = route.addDevice({
   type : Tivo,
   name : "FamilyRoomTivo",
-  init : { host: "10.1.10.25" }
+  init : { host: "10.1.10.205" }
 });
 
 var sonos = route.addDevice({
@@ -117,6 +141,39 @@ route.addEventMap({
   //
   //"Sonos.Kitchen.Started" : "Denon.Switch.Sonos",
 
+// InputVideo1 == chromecast
+  "Web.FamilyRoom.WatchTV" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo2",
+    "FamilyRoomTivo.TeleportNowPlaying"
+  ],
+  "Web.FamilyRoom.WatchMovie" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo2",
+    "FamilyRoomTivo.TeleportNowPlaying",
+    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.KitchenCabinets.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomChandelier.Off",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomRecessed.Off"
+  ],
+  "Web.FamilyRoom.PlayGame" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo3",
+    "FamilyRoomTivo.TeleportNowPlaying"
+  ],
+  "Web.FamilyRoom.Off" : [
+    "FamilyRoomTV.Off",
+    "FamilyRoomReceiver.Off"
+  ],
+
   //  Hard-coded web switches for media (TV/Speakers)
   //"Web.Kitchen.Sonos" : "Denon.Switch.Sonos",
   "Web.LivingRoom.ChromeCast" : [
@@ -151,22 +208,47 @@ route.addEventMap({
   */
 });
 
-route.map("Web.Lutron.*", function(eventname, data) {
-  lutron.exec(eventname.substring(11)); // chop off "Web.Lutron."
+var LUTRON_PREFIX = "Web.Lutron.";
+route.map(LUTRON_PREFIX + "*", function(eventname, data) {
+  lutron.exec(eventname.substring(LUTRON_PREFIX.length));
 });
 
-route.map("Web.Sonos.*", function(eventname, data) {
-  sonos.exec(eventname.substring(10)); // chop off "Web.Sonos."
+var SONOS_PREFIX = "Web.Sonos.";
+route.map(SONOS_PREFIX + "*", function(eventname, data) {
+  sonos.exec(eventname.substring(SONOS_PREFIX.length));
 });
 
-route.map("Web.FamilyRoomTV.*", function(eventname, data) {
-  livingroom_tv.exec(eventname.substring(17)); // chop off "Web.FamilyRoomTV."
+var FAMILYROOM_TV_PREFIX = "Web.FamilyRoomTV.";
+route.map(FAMILYROOM_TV_PREFIX + "*", function(eventname, data) {
+  livingroom_tv.exec(eventname.substring(FAMILYROOM_TV_PREFIX.length));
 });
 
-route.map("Web.FamilyRoomReceiver.*", function(eventname, data) {
-  livingroom_receiver.exec(eventname.substring(23)); // chop off "Web.FamilyRoomReceiver."
+var MASTERBEDROOM_TV_PREFIX = "Web.MasterBedroomTV.";
+route.map(MASTERBEDROOM_TV_PREFIX + "*", function(eventname, data) {
+  masterbedroom_tv.exec(eventname.substring(MASTERBEDROOM_TV_PREFIX.length));
 });
 
-route.map("Web.FamilyRoomTivo.*", function(eventname, data) {
-  livingroom_tivo.exec(eventname.substring(19)); // chop off "Web.FamilyRoomTivo."
-})
+var MASTERBATHROOM_TV_PREFIX = "Web.MasterBathroomTV.";
+route.map(MASTERBATHROOM_TV_PREFIX + "*", function(eventname, data) {
+  masterbathroom_tv.exec(eventname.substring(MASTERBATHROOM_TV_PREFIX.length));
+});
+
+var MASTERSUITE_RECEIVER_PREFIX = "Web.MasterSuiteReceiver.";
+route.map(MASTERSUITE_RECEIVER_PREFIX + "*", function(eventname, data) {
+  mastersuite_receiver.exec(eventname.substring(MASTERSUITE_RECEIVER_PREFIX.length));
+});
+
+var MASTERSUITE_TIVO_PREFIX = "Web.MasterSuiteTivo.";
+route.map(MASTERSUITE_TIVO_PREFIX + "*", function(eventname, data) {
+  mastersuite_tivo.exec(eventname.substring(MASTERSUITE_TIVO_PREFIX.length));
+});
+
+var FAMILYROOM_RECEIVER_PREFIX = "Web.FamilyRoomReceiver.";
+route.map(FAMILYROOM_RECEIVER_PREFIX + "*", function(eventname, data) {
+  livingroom_receiver.exec(eventname.substring(FAMILYROOM_RECEIVER_PREFIX.length));
+});
+
+var FAMILYROOM_TIVO_PREFIX = "Web.FamilyRoomTivo.";
+route.map(FAMILYROOM_TIVO_PREFIX + "*", function(eventname, data) {
+  livingroom_tivo.exec(eventname.substring(FAMILYROOM_TIVO_PREFIX.length));
+});

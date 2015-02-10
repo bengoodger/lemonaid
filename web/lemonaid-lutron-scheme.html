@@ -1,0 +1,26 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="lemonaid-lutron-scheme" attributes="lights">
+<template>
+  <button><content></content></button>
+</template>
+<script>
+
+  Polymer('lemonaid-lutron-scheme', {
+    lights: "",
+    ready: function() {
+      this.shadowRoot.querySelector("button").addEventListener(
+          "click", this.handleClick.bind(this), false);
+    },
+    handleClick: function(event) {
+      console.log("LIGHTS: " + this.lights);
+      var commands = this.lights.split(" ");
+      for (var i = 0; i < commands.length; ++i) {
+        console.log("lemonaid-lutron-switch > emit: " + commands[i]);
+        window.socket.emit("DeviceEvent", commands[i]);
+      }
+    }
+  });
+  
+</script>
+</polymer-element>

@@ -11,8 +11,26 @@
     </script>
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="lemonaid-integra.html">
+    <link rel="import" href="lemonaid-lutron-scheme.html">
     <link rel="import" href="lemonaid-samsung.html">
     <link rel="import" href="lemonaid-tivo.html">
+    <link rel="stylesheet" href="lemonaid.css">
+    <style>
+
+    .nav {
+      text-decoration: none;
+      color: black;
+      font-size: x-large;
+      font-weight: bold;
+      margin: .3em;
+      background: #DEDEDE;
+      padding: .2em;
+    }
+
+    #menu {
+      margin-right: 2em;
+    }
+    </style>
   </head>
   <body>
     <!--
@@ -21,61 +39,126 @@
                    cookiePolicy="single_host_origin"
                    labelSignin="Sign in with Google"></google-signin>
     -->
-    <div id="home">
-      <a name="home"><h1>Home</h1></a>
-    </div>
-    <div id="sonos">
-      <a name="sonos"><h1>Sonos</h1></a>
-    </div>
-    <div id="livingroom">
-      <a name="livingroom"><h1>Living Room</h1></a>
-      <div id="watchtv">
-        <a name="livingroom.tv"><h2>Watch TV</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
-        <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
+
+    <div class="flex row stretch">
+      <div id="menu" class="flex column stretch justify-start">
+        <a class="nav" href="#home">Home</a>
+        <a class="nav" href="#sonos">Sonos</a>
+        <a class="nav" href="#livingroom">Living Room</a>
+        <a class="nav" href="#master">Master Suite</a>
+        <a class="nav" href="#lighting">Lighting</a>
+        <a class="nav" href="#security">Security</a>
       </div>
-      <div id="playgame">
-        <a name="livingroom.game"><h2>Play Game</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
-      </div>
-      <div id="bluray">
-        <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
-      </div>
-      <div id="chromecast">
-        <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
-        <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
-        <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
-      </div>
-      <div id="devices">
-        <div id="device.tv">
-          <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
-          <lemonaid-samsung devicename="FamilyRoomTV"></lemonaid-samsung>
+      <div id="content">
+        <div id="home" class="page">
+          <a name="home"><h1>Home</h1></a>
         </div>
-        <div id="device.receiver">
-          <a name="livingroom.device.receiver"><h3>Living Room Receiver</h3></a>
-          <lemonaid-integra devicename="FamilyRoomReceiver"></lemonaid-integra>
+        <div id="sonos" class="page" hidden="true">
+          <a name="sonos"><h1>Sonos</h1></a>
         </div>
-        <div id="device.tivo">
-          <a name="livingroom.device.tivo"><h3>Living Room Tivo</h3></a>
-          <lemonaid-tivo devicename="FamilyRoomTivo"></lemonaid-tivo>
+        <div id="livingroom" class="page" hidden="true">
+          <a name="livingroom"><h1>Living Room</h1></a>
+          <div id="watchtv">
+            <a name="livingroom.tv"><h2>Watch TV</h2></a>
+            <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
+            <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
+            <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
+            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+            <lemonaid-tivo deviceName="FamilyRoomTivo">
+              <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+            </lemonaid-tivo>
+          </div>
+          <div id="playgame">
+            <a name="livingroom.game"><h2>Play Game</h2></a>
+            <button id="playgame" onclick="socket.emit('DeviceEvent', 'FamilyRoom.PlayGame');">Play Game</button>
+            <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
+            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+          </div>
+          <div id="bluray">
+            <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
+            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+          </div>
+          <div id="chromecast">
+            <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
+            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
+            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
+          </div>
+          <div id="lutron">
+            <a name="livingroom.lutron"><h2>Lighting</h2></a>
+            <h3>Living Room</h3>
+            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.40 Lutron.FamilyRoomChandelier.50">Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.90 Lutron.FamilyRoomChandelier.90">Bright</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.Off Lutron.FamilyRoomChandelier.Off">Off</lemonaid-lutron-scheme>
+            <h3>Kitchen</h3>
+            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.0 Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.25 Lutron.KitchenCabinets.Off">Super Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.50 Lutron.KitchenRecessed.40 Lutron.KitchenIslandPendants.60 Lutron.KitchenCabinets.40">Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.90 Lutron.KitchenRecessed.90 Lutron.KitchenIslandPendants.90 Lutron.KitchenCabinets.90">Bright</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.Off Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.Off Lutron.KitchenCabinets.Off">Off</lemonaid-lutron-scheme>
+            <h3>Dining Room</h3>
+            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.50 Lutron.DiningRoomRecessed.40 Lutron.DiningRoomCove.50">Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.90 Lutron.DiningRoomRecessed.90 Lutron.DiningRoomCove.90">Bright</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.Off Lutron.DiningRoomRecessed.Off Lutron.DiningRoomCove.Off">Off</lemonaid-lutron-scheme>
+            <h3>Foyer</h3>
+            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.50 Lutron.FoyerSconces.50">Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.90 Lutron.FoyerSconces.90">Bright</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.Off Lutron.FoyerSconces.Off">Off</lemonaid-lutron-scheme>
+          </div>
+          <div id="devices">
+            <a name="livingroom.devices"><h2>Devices</h2></a>
+            <div id="device.tv">
+              <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
+              <lemonaid-samsung deviceName="FamilyRoomTV" deviceView="true"></lemonaid-samsung>
+            </div>
+            <div id="device.receiver">
+              <a name="livingroom.device.receiver"><h3>Living Room Receiver</h3></a>
+              <lemonaid-integra deviceName="FamilyRoomReceiver" deviceView="true"></lemonaid-integra>
+            </div>
+            <div id="device.tivo">
+              <a name="livingroom.device.tivo"><h3>Living Room Tivo</h3></a>
+              <lemonaid-tivo deviceName="FamilyRoomTivo" deviceView="true"></lemonaid-tivo>
+            </div>
+            <div id="device.bluray">
+              <a name="livingroom.device.bluray"><h3>Living Room Blu Ray</h3></a>
+            </div>
+          </div>
         </div>
-        <div id="device.bluray">
-          <a name="livingroom.device.bluray"><h3>Living Room Blu Ray</h3></a>
+        <div id="master" class="page" hidden="true">
+          <a name="master"><h1>Master Suite</h1></a>
+          <div id="watchtv">
+            <a name="livingroom.tv"><h2>Watch TV</h2></a>
+            <lemonaid-integra deviceName="MasterSuiteReceiver" deviceView="true"></lemonaid-integra>
+            <lemonaid-tivo deviceName="MasterSuiteTivo" deviceView="true"></lemonaid-tivo>
+            Bedroom TV: <lemonaid-samsung deviceName="MasterBedroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
+            Bathroom TV: <lemonaid-samsung deviceName="MasterBathroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
+          </div>
+        </div>
+        <div id="lighting" class="page" hidden="true">
+          <a name="lighting"><h1>Lighting</h1></a>
+        </div>      
+        <div id="security" class="page" hidden="true">
+          <a name="security"><h1>Security</h1></a>
         </div>
       </div>
     </div>
-    <div id="master">
-      <a name="master"><h1>Master Suite</h1></a>
-    </div>
-    <div id="lighting">
-      <a name="lighting"><h1>Lighting</h1></a>
-    </div>      
-    <div id="security">
-      <a name="security"><h1>Security</h1></a>
-    </div>
+    <script>
+    function switchPageTo(page) {
+      var pages = document.querySelectorAll(".page");
+      for (var i = 0; i < pages.length; ++i)
+        pages[i].hidden = pages[i].id != page;    
+    }
+
+    function switchPageToRef() {
+      switchPageTo(window.location.hash == "" ? "home" :
+          window.location.hash.substring(1));
+    }
+
+    window.addEventListener("hashchange", function (event) {
+      switchPageToRef();
+    }, false);
+
+    switchPageToRef();
+    </script>
   </body>
 </html>

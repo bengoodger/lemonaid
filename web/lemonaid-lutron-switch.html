@@ -1,0 +1,43 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+
+<polymer-element name="lemonaid-lutron-switch" extends="paper-button" attributes="deviceName onBrightness">
+<template>
+  <shadow></shadow>
+</template>
+<script>
+
+  Polymer('lemonaid-lutron-switch', {
+    deviceName: "",
+    onBrightness: 75,
+    ready: function() {
+      window.socket.on(this.deviceName, this.handleBrightness.bind(this));
+      window.socket.emit("getState", this.deviceName);
+      this.shadowRoot.addEventListener("click", this.handleClick.bind(this), false);
+    },
+    handleBrightness: function(deets) {
+      console.log(">lemonaid-lutron-livingroom > brightness change: " + JSON.stringify(deets));
+      var brightness = parseInt(deets.brightness);
+      if (isNaN(brightness))
+        return;
+      var status = this.shadowRoot.querySelector("#status");
+      this.brightness = brightness;
+      this.isOn = this.brightness > 10;
+
+      //status.innerHTML = this.isOn ? "(ON)" : "(OFF)";
+    },
+    handleClick: function(event) {
+      console.log("HANDELCLICK");
+      var commandName = this.deviceName;
+      if (this.isOn)
+        commandName += ".Off";
+      else
+        commandName += "." + this.onBrightness;
+      this.isOn = !this.isOn;
+      console.log("lemonaid-lutron-switch > emit: " + commandName);
+      window.socket.emit("DeviceEvent", commandName);
+    }
+  });
+  
+</script>
+</polymer-element>

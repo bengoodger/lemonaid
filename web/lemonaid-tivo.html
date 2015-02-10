@@ -1,54 +1,98 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 
-<polymer-element name="lemonaid-tivo" attributes="devicename">
+<polymer-element name="lemonaid-tivo" attributes="deviceName">
 <template>
-  <div id="group">
-    <button id="TeleportTivo">Tivo Home</button>
-    <button id="TeleportLiveTV">Live TV</button>
-    <button id="TeleportGuide">Guide</button>
-    <button id="TeleportNowPlaying">Playlist</button>
-    <button id="ThumbsUp">Thumbs Up</button>
-    <button id="ThumbsDown">Thumbs Down</button>
-    <button id="ChannelUp">Channel Up</button>
-    <button id="ChannelDown">Channel Down</button>
-    <button id="Up">Up</button>
-    <button id="Down">Down</button>
-    <button id="Left">Left</button>
-    <button id="Right">Right</button>
-    <button id="Select">Select</button>
-    <button id="CCOn">Closed Captions On</button>
-    <button id="CCOff">Closed Captions Off</button>
-    <button id="Play">Play</button>
-    <button id="Pause">Pause</button>
-    <button id="Forward">Fast Forward</button>
-    <button id="Reverse">Rewind</button>
-    <button id="Slow">Slow</button>
-    <button id="Advance">30-second skip</button>
-    <button id="Replay">15-second replay</button>
-    <button id="Record">Record</button>
-    <button id="Num0">0</button>
-    <button id="Num1">1</button>
-    <button id="Num2">2</button>
-    <button id="Num3">3</button>
-    <button id="Num4">4</button>
-    <button id="Num5">5</button>
-    <button id="Num6">6</button>
-    <button id="Num7">7</button>
-    <button id="Num8">8</button>
-    <button id="Num9">9</button>
+  <link rel="stylesheet" type="text/css" href="lemonaid.css">
+  <style type="text/css">
+
+  #remote {
+    width: 20em;
+  }
+
+  </style>
+  <div id="remote">
+    <div id="teleports" class="flex row group">
+      <button id="TeleportTivo">Tivo Home</button>
+      <button id="TeleportLiveTV">Live TV</button>
+      <button id="TeleportGuide">Guide</button>
+      <button id="TeleportNowPlaying">Playlist</button>
+    </div>
+    <div class="flex row">
+      <div>
+        <content></content>
+      </div>
+      <div id="cursor" class="flex row group">
+        <div><button id="Left">Left</button></div>
+        <div class="flex column stretch"><button id="Up">Up</button>
+             <button id="Select">Select</button>
+             <button id="Down">Down</button>
+        </div>
+        <div><button id="Right">Right</button></div>
+      </div>
+      <div class="flex column stretch">
+        <button id="ChannelUp">Chan+</button>
+        <button id="ChannelDown">Chan-</button>
+      </div>
+    </div>
+    <div id="playback" class="flex column group">
+      <div class="flex row">
+        <button id="Reverse">&lt;&lt;</button>
+        <div class="flex column">
+          <button id="Play">&gt;</button>
+          <button id="Pause">||</button>
+        </div>
+        <button id="Forward">&gt;&gt;</button>
+      </div>
+      <div class="flex row">
+        <button id="Replay">&lt;-</button>
+        <button id="Record">Rec</button>
+        <button id="Advance">--&gt;</button>
+      </div>
+    </div>
+    <div id="numbers" class="flex column group">
+      <div>
+        <button id="Num1">1</button>
+        <button id="Num2">2</button>
+        <button id="Num3">3</button>
+      </div>
+      <div>
+        <button id="Num4">4</button>
+        <button id="Num5">5</button>
+        <button id="Num6">6</button>
+      </div>
+      <div>
+        <button id="Num7">7</button>
+        <button id="Num8">8</button>
+        <button id="Num9">9</button>
+      </div>
+      <div>
+        <button id="Num0">0</button>
+      </div>
+    </div>
+
+    <div id="random" class="group">
+      <div>
+        <button id="Slow">Slow</button>
+        <button id="ThumbsUp">Thumbs Up</button>
+        <button id="ThumbsDown">Thumbs Dn</button>
+      </div>
+      <div>
+        <button id="CCOn">Captions On</button> / 
+        <button id="CCOff">Off</button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 
   Polymer('lemonaid-tivo', {
-    devicename: "",
+    deviceName: "",
     ready: function() {
-      this.shadowRoot.querySelector("#group").addEventListener(
-          "click", this.handleClick.bind(this), false);
+      this.shadowRoot.addEventListener("click", this.handleClick.bind(this), false);
     },
     handleClick: function(event) {
-      var commandName = this.devicename + "." + event.target.id;
-      console.log("ETN: " + commandName);
+      var commandName = this.deviceName + "." + event.target.id;
+      console.log("lemonaid-tivo > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }
   });

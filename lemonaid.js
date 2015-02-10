@@ -18,19 +18,19 @@ var route = Route.create();
 var livingroom_tv = route.addDevice({
   type : SamsungExLink,
   name : "FamilyRoomTV",
-  init : { host: "10.1.10.11" }
+  init : { host: "10.1.10.209" }
 });
 
 var masterbedroom_tv = route.addDevice({
   type : SamsungExLink,
   name : "MasterBedroomTV",
-  init : { host: "10.1.10.51" }
+  init : { host: "10.1.10.213" }
 });
 
 var masterbathroom_tv = route.addDevice({
   type : SamsungExLink,
   name : "MasterBathTV",
-  init : { host: "10.1.10.52" }
+  init : { host: "10.1.10.214" }
 });
 
 var mastersuite_receiver = route.addDevice({
@@ -48,13 +48,13 @@ var mastersuite_tivo = route.addDevice({
 var livingroom_receiver = route.addDevice({
   type : Integra,
   name : "FamilyRoomReceiver",
-  init : { host: "10.1.10.10" }
+  init : { host: "10.1.10.206" }
 });
 
 var livingroom_tivo = route.addDevice({
   type : Tivo,
   name : "FamilyRoomTivo",
-  init : { host: "10.1.10.33" }
+  init : { host: "10.1.10.205" }
 });
 
 var sonos = route.addDevice({

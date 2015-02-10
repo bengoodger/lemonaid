@@ -88,8 +88,7 @@
   Polymer('lemonaid-tivo', {
     deviceName: "",
     ready: function() {
-      this.shadowRoot.querySelector("#group").addEventListener(
-          "click", this.handleClick.bind(this), false);
+      this.shadowRoot.addEventListener("click", this.handleClick.bind(this), false);
     },
     handleClick: function(event) {
       var commandName = this.deviceName + "." + event.target.id;

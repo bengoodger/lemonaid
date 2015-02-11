@@ -128,7 +128,7 @@ var web = route.addDevice({
   type : Web,
   name : "Web",
   init : {
-    port : 8080,
+    port : 80,
     dir : __dirname + "/web/"
   }
 });

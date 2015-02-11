@@ -62,14 +62,14 @@ var sonos = route.addDevice({
   name : "Sonos",
   init : {
     components : {
-      "Kitchen" : "10.1.10.15",
-      "DiningRoom" : "10.1.10.16",
-      "MasterBedroom" : "10.1.10.18",
-      "MasterBathroom" : "10.1.10.17",
-      "RumpusRoom" : "10.1.10.19",
-      "LegoRoom" : "10.1.10.11",
-      //"Office" : "10.0.1.14",
-      //"Lanai" : "10.0.1.17",
+      "Kitchen" : "10.1.10.23",
+      "DiningRoom" : "10.1.10.21",
+      "MasterBedroom" : "10.1.10.24",
+      "MasterBathroom" : "10.1.10.20",
+      "RumpusRoom" : "10.1.10.25",
+      "LegoRoom" : "10.1.10.12",
+      "Office" : "10.0.1.44",
+      "Lanai" : "10.0.1.38",
       //"Landscape" : ???
     }
   }

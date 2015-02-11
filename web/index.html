@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="lemonaid.css">
     <style>
 
-    .nav {
+    #menu > .nav {
       text-decoration: none;
       color: black;
       font-size: x-large;
@@ -25,6 +25,15 @@
       margin: .3em;
       background: #DEDEDE;
       padding: .2em;
+    }
+
+    .nav[selected] {
+      color: red;
+      font-weight: bold;
+    }
+
+    #menu > .nav[selected] {
+      color: red;
     }
 
     #menu {
@@ -58,8 +67,15 @@
         </div>
         <div id="livingroom" class="page" hidden="true">
           <a name="livingroom"><h1>Living Room</h1></a>
-          <div id="watchtv">
-            <a name="livingroom.tv"><h2>Watch TV</h2></a>
+          <div id="livingroom.nav">
+            <a class="nav" href="#livingroom.tv">TV</a>
+            <a class="nav" href="#livingroom.game">PS4</a>
+            <a class="nav" href="#livingroom.bluray">Blu-Ray</a>
+            <a class="nav" href="#livingroom.chromecast">Chromecast</a>
+            <a class="nav" href="#livingroom.lighting">Lighting</a>
+            <a class="nav" href="#livingroom.devices">Devices</a>
+          </div>
+          <div id="livingroom.tv" class="page">
             <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
             <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
@@ -68,25 +84,21 @@
               <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
             </lemonaid-tivo>
           </div>
-          <div id="playgame">
-            <a name="livingroom.game"><h2>Play Game</h2></a>
+          <div id="livingroom.game" class="page" hidden="true">
             <button id="playgame" onclick="socket.emit('DeviceEvent', 'FamilyRoom.PlayGame');">Play Game</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="bluray">
-            <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
+          <div id="livingroom.bluray" class="page" hidden="true">
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="chromecast">
-            <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
+          <div id="livingroom.chromecast" class="page" hidden="true">
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="lutron">
-            <a name="livingroom.lutron"><h2>Lighting</h2></a>
+          <div id="livingroom.lighting" class="page" hidden="true">
             <h3>Living Room</h3>
             <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.40 Lutron.FamilyRoomChandelier.50">Chill</lemonaid-lutron-scheme>
             <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.90 Lutron.FamilyRoomChandelier.90">Bright</lemonaid-lutron-scheme>
@@ -105,37 +117,71 @@
             <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.90 Lutron.FoyerSconces.90">Bright</lemonaid-lutron-scheme>
             <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.Off Lutron.FoyerSconces.Off">Off</lemonaid-lutron-scheme>
           </div>
-          <div id="devices">
-            <a name="livingroom.devices"><h2>Devices</h2></a>
-            <div id="device.tv">
-              <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
+          <div id="livingroom.devices" class="page" hidden="true">
+            <div id="livingroom.devices.nav">
+              ....
+              <a class="nav" href="#livingroom.devices.tv">TV</a>
+              <a class="nav" href="#livingroom.devices.receiver">Receiver</a>
+              <a class="nav" href="#livingroom.devices.tivo">Tivo</a>
+              <a class="nav" href="#livingroom.devices.bluray">Blu-Ray</a>
+            </div>
+            <div id="livingroom.devices.tv" class="page">
               <lemonaid-samsung deviceName="FamilyRoomTV" deviceView="true"></lemonaid-samsung>
             </div>
-            <div id="device.receiver">
-              <a name="livingroom.device.receiver"><h3>Living Room Receiver</h3></a>
+            <div id="livingroom.devices.receiver" hidden="true" class="page">
               <lemonaid-integra deviceName="FamilyRoomReceiver" deviceView="true"></lemonaid-integra>
             </div>
-            <div id="device.tivo">
-              <a name="livingroom.device.tivo"><h3>Living Room Tivo</h3></a>
+            <div id="livingroom.devices.tivo" hidden="true" class="page">
               <lemonaid-tivo deviceName="FamilyRoomTivo" deviceView="true"></lemonaid-tivo>
             </div>
-            <div id="device.bluray">
-              <a name="livingroom.device.bluray"><h3>Living Room Blu Ray</h3></a>
+            <div id="livingroom.devices.bluray" hidden="true" class="page">
             </div>
           </div>
         </div>
         <div id="master" class="page" hidden="true">
           <a name="master"><h1>Master Suite</h1></a>
-          <div id="watchtv">
-            <a name="master.tv"><h2>Watch TV</h2></a>
-            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.WatchTV');">Watch TV (Bedroom)</button>
-            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.ChromeCast');">ChromeCast (Bedroom)</button>
-            <button id="watchtv-bathroom" onclick="socket.emit('DeviceEvent', 'MasterBathroom.WatchTV');">Watch TV (Bathroom)</button>
+          <div id="master.nav">
+            <a class="nav" href="#master.bedroom">Bedroom</a>
+            <a class="nav" href="#master.bathroom">Bathroom</a>
+            <a class="nav" href="#master.lighting">Lighting</a>
+            <a class="nav" href="#master.devices">Devices</a>
+          </div>
+          <div id="master.bedroom" class="page">
+            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.WatchTV');">Watch TV</button>
+            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.ChromeCast');">Chromecast</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">Master Suite Off</button>
-            <lemonaid-integra deviceName="MasterSuiteReceiver" deviceView="true"></lemonaid-integra>
-            <lemonaid-tivo deviceName="MasterSuiteTivo" deviceView="true"></lemonaid-tivo>
-            Bedroom TV: <lemonaid-samsung deviceName="MasterBedroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
-            Bathroom TV: <lemonaid-samsung deviceName="MasterBathroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
+            <lemonaid-tivo deviceName="MasterSuiteTivo"></lemonaid-tivo>
+          </div>
+          <div id="master.bathroom" class="page" hidden="true">
+            <button id="watchtv-bathroom" onclick="socket.emit('DeviceEvent', 'MasterBathroom.WatchTV');">Watch TV</button>
+            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">Master Suite Off</button>
+            <lemonaid-tivo deviceName="MasterSuiteTivo"></lemonaid-tivo>
+          </div>
+          <div id="master.lighting" class="page" hidden="true">
+            <h3>Bedroom</h3>
+            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.0 Lutron.MasterBedroomCove.25 Lutron.MasterBedroomChandelier.50">Sparks</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.50 Lutron.MasterBedroomCove.25 Lutron.MasterBedroomChandelier.50">Chill</lemonaid-lutron-scheme>
+            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.75 Lutron.MasterBedroomCove.90 Lutron.MasterBedroomChandelier.90">Normal</lemonaid-lutron-scheme>
+          </div>
+          <div id="master.devices" class="page" hidden="true">
+            <div id="master.devices.nav">
+              <a class="nav" href="#master.devices.receiver">Receiver</a>
+              <a class="nav" href="#master.devices.tivo">Tivo</a>
+              <a class="nav" href="#master.devices.bedroomtv">Bedroom TV</a>
+              <a class="nav" href="#master.devices.bathroomtv">Bathroom TV</a>
+            </div>
+            <div id="master.devices.receiver" class="page">
+              <lemonaid-integra deviceName="MasterSuiteReceiver" deviceView="true"></lemonaid-integra>
+            </div>
+            <div id="master.devices.tivo" class="page" hidden="true">
+              <lemonaid-tivo deviceName="MasterSuiteTivo" deviceView="true"></lemonaid-tivo>
+            </div>
+            <div id="master.devices.bedroomtv" class="page" hidden="true">
+              <lemonaid-samsung deviceName="MasterBedroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
+            </div>
+            <div id="master.devices.bathroomtv" class="page" hidden="true">
+              <lemonaid-samsung deviceName="MasterBathroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
+            </div>
           </div>
         </div>
         <div id="lighting" class="page" hidden="true">
@@ -149,8 +195,27 @@
     <script>
     function switchPageTo(page) {
       var pages = document.querySelectorAll(".page");
-      for (var i = 0; i < pages.length; ++i)
-        pages[i].hidden = pages[i].id != page;    
+      var selectedPage = null;
+      for (var i = 0; i < pages.length; ++i) {
+        var isParent = page.substring(0, pages[i].id.length) == pages[i].id;
+        pages[i].hidden = !isParent && pages[i].id != page;
+        if (pages[i].id == page)
+          selectedPage = pages[i];
+      }
+
+      var firstSubPage = selectedPage.querySelector(".page");
+      if (firstSubPage)
+        window.location.href = "#" + firstSubPage.id;
+      
+      var navLinks = document.querySelectorAll(".nav");
+      for (var i = 0; i < navLinks.length; ++i) {
+        var ref = new URL(navLinks[i].href).hash.substring(1);
+        var isParent = page.substring(0, ref.length) == ref;
+        if (ref == page || isParent)
+          navLinks[i].setAttribute("selected", true);
+        else
+          navLinks[i].removeAttribute("selected");
+      }
     }
 
     function switchPageToRef() {

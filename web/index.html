@@ -127,7 +127,10 @@
         <div id="master" class="page" hidden="true">
           <a name="master"><h1>Master Suite</h1></a>
           <div id="watchtv">
-            <a name="livingroom.tv"><h2>Watch TV</h2></a>
+            <a name="master.tv"><h2>Watch TV</h2></a>
+            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.WatchTV');">Watch TV (Bedroom)</button>
+            <button id="watchtv-bathroom" onclick="socket.emit('DeviceEvent', 'MasterBathroom.WatchTV');">Watch TV (Bathroom)</button>
+            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">Master Suite Off</button>
             <lemonaid-integra deviceName="MasterSuiteReceiver" deviceView="true"></lemonaid-integra>
             <lemonaid-tivo deviceName="MasterSuiteTivo" deviceView="true"></lemonaid-tivo>
             Bedroom TV: <lemonaid-samsung deviceName="MasterBedroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>

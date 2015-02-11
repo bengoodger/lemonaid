@@ -1,6 +1,3 @@
-/**
- * This is what Glen uses to run his house
- */
 var http = require('http');
 var Route = require('../route/core/route.js');
 
@@ -69,7 +66,7 @@ var sonos = route.addDevice({
       "RumpusRoom" : "10.1.10.25",
       "LegoRoom" : "10.1.10.12",
       "Office" : "10.0.1.44",
-      "Lanai" : "10.0.1.38",
+      "Lanai" : "10.0.1.38"
       //"Landscape" : ???
     }
   }
@@ -131,17 +128,13 @@ var web = route.addDevice({
   type : Web,
   name : "Web",
   init : {
-    port : 80,
+    port : 8080,
     dir : __dirname + "/web/"
   }
 });
 
 // Simple map of events to commands.
 route.addEventMap({
-  //
-  //"Sonos.Kitchen.Started" : "Denon.Switch.Sonos",
-
-// InputVideo1 == chromecast
   "Web.FamilyRoom.WatchTV" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",
@@ -175,16 +168,6 @@ route.addEventMap({
   ],
 
   //  Hard-coded web switches for media (TV/Speakers)
-  //"Web.Kitchen.Sonos" : "Denon.Switch.Sonos",
-  "Web.LivingRoom.ChromeCast" : [
-    "Sonos.Kitchen.Pause",
-    "Sonos.DiningRoom.Pause",
-  ],
-  "Web.Livingroom.PS3" : [
-//    "Denon.Switch.HDMI",
-    "Sonos.Kitchen.Pause",
-    "Sonos.DiningRoom.Pause",
-  ],
   "Web.MasterBedroom.WatchTV" : [
     "MasterBedroomTV.On",
     "MasterSuiteReceiver.On",
@@ -208,27 +191,6 @@ route.addEventMap({
     "MasterBathTV.Off",
     "MasterSuiteReceiver.Off"
   ],
-
-//  "Web.MasterBedroom.ChromeCast" : "IR.B-ChromeCast",
-//  "Web.Masterbed.PS3" : "IR.B-PS3",
-
-/*
-  "Lutron.LivingroomKeypad.Goodnight.On" : [
-    "Sonos.Livingroom.Pause",
-    "Sonos.Masterbed.Pause",
-    "Denon.Switch.Sonos",
-  ],
-  "Lutron.LivingroomKeypad.Sonos.On" : "Sonos.Livingroom.PlayPause",
-  "Lutron.MasterbedKeypad.Sonos.On" : "Sonos.Masterbed.PlayPause",
-  "Web.Livingroom.PlayPause" : "Sonos.Livingroom.PlayPause",
-  "Web.Masterbed.PlayPause" : "Sonos.Masterbed.PlayPause",
-  "Web.GlenHome" : [
-    "Lutron.LivingroomLoungeLamp.On",
-    "Lutron.HallwayPendantLights.On",
-    "Lutron.KitchenBarLights.On",
-    "Lutron.KitchenCabinetLights.On"
-  ]
-  */
 });
 
 var LUTRON_PREFIX = "Web.Lutron.";

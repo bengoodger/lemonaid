@@ -188,18 +188,24 @@ route.addEventMap({
   "Web.MasterBedroom.WatchTV" : [
     "MasterBedroomTV.On",
     "MasterSuiteReceiver.On",
-    "MasterSuiteReceiver.InputVideo1",
+    "MasterSuiteReceiver.InputVideo3",
     "MasterSuiteTivo.TeleportNowPlaying"
   ],
-  "Web.MasterBathroom.WatchTV" : [
-    "MasterBathroomTV.On",
+  "Web.MasterBedroom.ChromeCast" : [
+    "MasterBedroomTV.On",
     "MasterSuiteReceiver.On",
     "MasterSuiteReceiver.InputVideo1",
+  ],
+  "Web.MasterBathroom.WatchTV" : [
+    "MasterBathTV.On",
+    "MasterBathTV.InputHDMI3",
+    "MasterSuiteReceiver.On",
+    "MasterSuiteReceiver.InputVideo3",
     "MasterSuiteTivo.TeleportNowPlaying"
   ],
   "Web.MasterSuite.Off" : [
     "MasterBedroomTV.Off",
-    "MasterBathroomTV.Off",
+    "MasterBathTV.Off",
     "MasterSuiteReceiver.Off"
   ],
 

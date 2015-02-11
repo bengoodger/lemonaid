@@ -36,13 +36,13 @@ var masterbathroom_tv = route.addDevice({
 var mastersuite_receiver = route.addDevice({
   type : Integra,
   name : "MasterSuiteReceiver",
-  init : { host: "10.1.10.45" }
+  init : { host: "10.1.10.211" }
 });
 
 var mastersuite_tivo = route.addDevice({
   type : Tivo,
   name : "MasterSuiteTivo",
-  init : { host: "10.1.10.31" }
+  init : { host: "10.1.10.210" }
 });
 
 var livingroom_receiver = route.addDevice({
@@ -184,6 +184,23 @@ route.addEventMap({
 //    "Denon.Switch.HDMI",
     "Sonos.Kitchen.Pause",
     "Sonos.DiningRoom.Pause",
+  ],
+  "Web.MasterBedroom.WatchTV" : [
+    "MasterBedroomTV.On",
+    "MasterSuiteReceiver.On",
+    "MasterSuiteReceiver.InputVideo1",
+    "MasterSuiteTivo.TeleportNowPlaying"
+  ],
+  "Web.MasterBathroom.WatchTV" : [
+    "MasterBathroomTV.On",
+    "MasterSuiteReceiver.On",
+    "MasterSuiteReceiver.InputVideo1",
+    "MasterSuiteTivo.TeleportNowPlaying"
+  ],
+  "Web.MasterSuite.Off" : [
+    "MasterBedroomTV.Off",
+    "MasterBathroomTV.Off",
+    "MasterSuiteReceiver.Off"
   ],
 
 //  "Web.MasterBedroom.ChromeCast" : "IR.B-ChromeCast",

@@ -58,8 +58,15 @@
         </div>
         <div id="livingroom" class="page" hidden="true">
           <a name="livingroom"><h1>Living Room</h1></a>
-          <div id="watchtv">
-            <a name="livingroom.tv"><h2>Watch TV</h2></a>
+          <div id="livingroom.nav">
+            <a class="activity" href="#livingroom.tv">TV</a>
+            <a class="activity" href="#livingroom.game">PS4</a>
+            <a class="activity" href="#livingroom.bluray">Blu-Ray</a>
+            <a class="activity" href="#livingroom.chromecast">Chromecast</a>
+            <a class="activity" href="#livingroom.lighting">Lighting</a>
+            <a class="activity" href="#livingroom.devices">Devices</a>
+          </div>
+          <div id="livingroom.tv" class="page" hidden="true">
             <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
             <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
@@ -68,25 +75,21 @@
               <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
             </lemonaid-tivo>
           </div>
-          <div id="playgame">
-            <a name="livingroom.game"><h2>Play Game</h2></a>
+          <div id="livingroom.game" class="page" hidden="true">
             <button id="playgame" onclick="socket.emit('DeviceEvent', 'FamilyRoom.PlayGame');">Play Game</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="bluray">
-            <a name="livingroom.bluray"><h2>Watch Blu Ray</h2></a>
+          <div id="livingroom.bluray" class="page" hidden="true">
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="chromecast">
-            <a name="livingroom.chromecast"><h2>Watch Chromecast</h2></a>
+          <div id="livingroom.chromecast" class="page" hidden="true">
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
           </div>
-          <div id="lutron">
-            <a name="livingroom.lutron"><h2>Lighting</h2></a>
+          <div id="livingroom.lighting" class="page" hidden="true">
             <h3>Living Room</h3>
             <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.40 Lutron.FamilyRoomChandelier.50">Chill</lemonaid-lutron-scheme>
             <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.90 Lutron.FamilyRoomChandelier.90">Bright</lemonaid-lutron-scheme>
@@ -105,8 +108,7 @@
             <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.90 Lutron.FoyerSconces.90">Bright</lemonaid-lutron-scheme>
             <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.Off Lutron.FoyerSconces.Off">Off</lemonaid-lutron-scheme>
           </div>
-          <div id="devices">
-            <a name="livingroom.devices"><h2>Devices</h2></a>
+          <div id="livingroom.devices" class="page" hidden="true">
             <div id="device.tv">
               <a name="livingroom.device.tv"><h3>Living Room TV</h3></a>
               <lemonaid-samsung deviceName="FamilyRoomTV" deviceView="true"></lemonaid-samsung>
@@ -149,8 +151,10 @@
     <script>
     function switchPageTo(page) {
       var pages = document.querySelectorAll(".page");
-      for (var i = 0; i < pages.length; ++i)
-        pages[i].hidden = pages[i].id != page;    
+      for (var i = 0; i < pages.length; ++i) {
+        var isParent = page.substring(0, pages[i].length) == pages[i];
+        pages[i].hidden = !isParent || pages[i].id != page;
+      }
     }
 
     function switchPageToRef() {

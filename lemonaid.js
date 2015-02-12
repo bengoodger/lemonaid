@@ -76,7 +76,7 @@ var lutron = route.addDevice({
   type : Lutron,
   name : "Lutron",
   init : {
-    host : "10.1.10.32",
+    host : "10.1.10.26",
     username : "lutron",
     password: "integration",
     devices : {

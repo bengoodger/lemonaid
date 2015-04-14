@@ -80,6 +80,10 @@
             <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
             <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
+            Lights:
+            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsDim');">Dim</button>
+            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsOff');">Off</button>
+
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-tivo deviceName="FamilyRoomTivo">
               <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
@@ -193,14 +197,14 @@
             <a class="nav" href="#lighting.loads">Loads</a>
           </div>
           <div id="lighting.schemes" class="page">
-            <button>All Off</button>
-            <button>Entertaining</button>
-            <button>Intimate</button>
-            <button>Late Night</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">All Off</button>
+            <button disabled>Entertaining</button>
+            <button disabled>Intimate</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
           </div>
           <div id="lighting.loads" class="page" hidden="true">
             <h3>Exterior Front</h3>
-            <lemonaid-lutron-load load="Lutron.FrontPorchLights">Front Porch Pendants</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.FrontPorchPendants">Front Porch Pendants</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.FrontDoorSconces">Front Door Sconces</lemonaid-lutron-load>
             <h3>Family Room</h3>
             <lemonaid-lutron-load load="Lutron.FamilyRoomRecessed">Recessed</lemonaid-lutron-load><br>

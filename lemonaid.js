@@ -76,7 +76,7 @@ var lutron = route.addDevice({
   type : Lutron,
   name : "Lutron",
   init : {
-    host : "10.1.10.26",
+    host : "10.1.10.28",
     username : "lutron",
     password: "integration",
     devices : {
@@ -159,6 +159,26 @@ route.addEventMap({
     "Lutron.FamilyRoomChandelier.Off",
     "Lutron.FamilyRoomRecessed.Off"
   ],
+  "Web.FamilyRoom.LightsDim" : [
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomChandelier.25",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomRecessed.Off"
+  ],
+  "Web.FamilyRoom.LightsOff" : [
+    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.KitchenCabinets.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomChandelier.Off",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomRecessed.Off"
+  ],
   "Web.FamilyRoom.PlayGame" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",
@@ -168,6 +188,35 @@ route.addEventMap({
   "Web.FamilyRoom.Off" : [
     "FamilyRoomTV.Off",
     "FamilyRoomReceiver.Off"
+  ],
+
+  "Web.LutronAllOff" : [
+    "Lutron.FrontPorchPendants.Off",
+    "Lutron.FrontDoorSconces.Off",
+    "Lutron.FamilyRoomRecessed.Off",
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomPorch.Off",
+    "Lutron.DiningRoomChandelier.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.LanaiChandeliers.Off",
+    "Lutron.FoyerPendants.Off",
+    "Lutron.FoyerSconces.Off",
+    "Lutron.HallwayPendant.Off",
+    "Lutron.HallwayRecessed.25",  // during babby times
+    "Lutron.HallwayWallWashers.Off",
+    "Lutron.KitchenCabinets.Off",
+    "Lutron.MasterBedroomRecessed.Off",
+    "Lutron.MasterBedroomChandelier.Off",
+    "Lutron.MasterBedroomCove.Off",
+    "Lutron.MasterBedroomDeck.Off",
+    "Lutron.MasterBathroomSconces.Off",
+    "Lutron.MasterBathroomRecessed.Off",
+    "Lutron.MasterBathroomShower.Off",
+    "Lutron.MudRoomRecessed.Off"
   ],
 
   //  Hard-coded web switches for media (TV/Speakers)
@@ -206,6 +255,13 @@ route.addEventMap({
     "MasterSuiteTivo.TeleportNowPlaying",
     "MasterSuiteTivo.Select",
     "MasterSuiteTivo.Select",
+  ],
+  "Web.LutronNightPath" : [
+    "Lutron.HallwayPendant.30",
+    "Lutron.FoyerPendants.30",
+    "Lutron.FamilyRoomChandelier.30",
+    "Lutron.KitchenIslandPendants.30",
+    "Lutron.KitchenCabinets.50",
   ],
 });
 

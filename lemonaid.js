@@ -76,7 +76,7 @@ var lutron = route.addDevice({
   type : Lutron,
   name : "Lutron",
   init : {
-    host : "10.1.10.32",
+    host : "10.1.10.26",
     username : "lutron",
     password: "integration",
     devices : {
@@ -84,12 +84,14 @@ var lutron = route.addDevice({
       "FrontDoorSconces" : { id : 15, type : Lutron.TYPE_LIGHT },
       "FamilyRoomRecessed" : { id : 19, type : Lutron.TYPE_LIGHT },
       "FamilyRoomChandelier" : { id : 20, type : Lutron.TYPE_LIGHT },
+      "FamilyRoomPorch" : { id : 16, type : Lutron.TYPE_LIGHT },
       "DiningRoomChandelier" : { id : 21, type : Lutron.TYPE_LIGHT },
       "DiningRoomRecessed" : { id : 22, type : Lutron.TYPE_LIGHT },
       "DiningRoomCove" : { id : 25, type : Lutron.TYPE_LIGHT },
       "KitchenSinkAndNook" : { id : 26, type : Lutron.TYPE_LIGHT },
       "KitchenRecessed" : { id : 27, type : Lutron.TYPE_LIGHT },
       "KitchenIslandPendants" : { id : 28, type : Lutron.TYPE_LIGHT },
+      "LanaiChandeliers" : { id : 17, type : Lutron.TYPE_LIGHT },
       "FoyerPendants" : { id : 31, type : Lutron.TYPE_LIGHT },
       "FoyerSconces" : { id : 32, type : Lutron.TYPE_LIGHT },
       "HallwayPendant" : { id : 33, type : Lutron.TYPE_LIGHT },
@@ -99,6 +101,7 @@ var lutron = route.addDevice({
       "MasterBedroomRecessed" : { id : 37, type : Lutron.TYPE_LIGHT },
       "MasterBedroomCove" : { id : 38, type : Lutron.TYPE_LIGHT },
       "MasterBedroomChandelier" : { id : 39, type : Lutron.TYPE_LIGHT },
+      "MasterBedroomDeck" : { id : 18, type : Lutron.TYPE_LIGHT },
       "MasterBathroomSconces" : { id : 40, type : Lutron.TYPE_LIGHT },
       "MasterBathroomRecessed" : { id : 41, type : Lutron.TYPE_LIGHT },
       "MasterBathroomShower" : { id : 42, type : Lutron.TYPE_LIGHT },
@@ -128,7 +131,7 @@ var web = route.addDevice({
   type : Web,
   name : "Web",
   init : {
-    port : 8080,
+    port : 80,
     dir : __dirname + "/web/"
   }
 });
@@ -190,6 +193,19 @@ route.addEventMap({
     "MasterBedroomTV.Off",
     "MasterBathTV.Off",
     "MasterSuiteReceiver.Off"
+  ],
+  "Web.MasterBathroom.WakeUpBen" : [
+    "Lutron.MasterBathroomSconces.95",
+    "Lutron.MasterBathroomRecessed.90",
+    "Lutron.MasterBathroomShower.100",
+    "Lutron.MasterBathroomFan.On",
+    "MasterBathTV.On",
+    "MasterBathTV.InputHDMI3",
+    "MasterSuiteReceiver.On",
+    "MasterSuiteReceiver.InputVideo3",
+    "MasterSuiteTivo.TeleportNowPlaying",
+    "MasterSuiteTivo.Select",
+    "MasterSuiteTivo.Select",
   ],
 });
 

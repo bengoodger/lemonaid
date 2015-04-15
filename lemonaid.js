@@ -179,6 +179,16 @@ route.addEventMap({
     "Lutron.FamilyRoomChandelier.Off",
     "Lutron.FamilyRoomRecessed.Off"
   ],
+  "Web.FamilyRoom.LightsOn" : [
+    "Lutron.FamilyRoomChandelier.On",
+    "Lutron.FamilyRoomRecessed.On"
+  ],
+  "Web.FamilyRoom.KitchenOn" : [
+    "Lutron.KitchenSinkAndNook.On",
+    "Lutron.KitchenRecessed.On",
+    "Lutron.KitchenIslandPendants.On",
+    "Lutron.KitchenCabinets.On",
+  ],
   "Web.FamilyRoom.PlayGame" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",

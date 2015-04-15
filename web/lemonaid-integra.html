@@ -15,6 +15,10 @@
           <button id="VolumeDown">Vol-</button>
         </div>
         <div class="flex row">
+          <button id="VolumeSet">Vol:</button>
+          <input type="text" id="VolumeLevel" size="3" value="30"></input>
+        </div>
+        <div class="flex row">
           <button id="MuteOn">Mute</button> /
           <button id="MuteOff">Off</button>
         </div>
@@ -34,6 +38,10 @@
     },
     handleClick: function(event) {
       var commandName = this.deviceName + "." + event.target.id;
+      if (event.target.id == "VolumeSet") {
+        var level = this.shadowRoot.querySelector("#VolumeLevel").value;
+        commandName = this.deviceName + ".VolumeSet." + level;
+      }
       console.log("lemonaid-integra > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);
     }

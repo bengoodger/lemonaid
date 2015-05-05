@@ -6,7 +6,7 @@
     <script>
       var socket = io.connect();
       socket.on('disconnect', function() {
-        socket.socket.connect();
+        socket.connect();
       });
     </script>
     <link rel="import" href="bower_components/polymer/polymer.html">

@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="lemonaid.css">
     <style>
 
+    body {
+      zoom: 1.75;
+    }
+
     #menu > .nav {
       text-decoration: none;
       color: black;
@@ -52,12 +56,9 @@
 
     <div class="flex row stretch">
       <div id="menu" class="flex column stretch justify-start">
-        <a class="nav" href="#home">Home</a>
-        <a class="nav" href="#sonos">Sonos</a>
         <a class="nav" href="#livingroom">Living Room</a>
         <a class="nav" href="#master">Master Suite</a>
         <a class="nav" href="#lighting">Lighting</a>
-        <a class="nav" href="#security">Security</a>
       </div>
       <div id="content">
         <div id="home" class="page">
@@ -67,7 +68,6 @@
           <a name="sonos"><h1>Sonos</h1></a>
         </div>
         <div id="livingroom" class="page" hidden="true">
-          <a name="livingroom"><h1>Living Room</h1></a>
           <div id="livingroom.nav">
             <a class="nav" href="#livingroom.tv">TV</a>
             <a class="nav" href="#livingroom.game">PS4</a>
@@ -101,7 +101,6 @@
           </div>
         </div>
         <div id="master" class="page" hidden="true">
-          <a name="master"><h1>Master Suite</h1></a>
           <div id="master.nav">
             <a class="nav" href="#master.bedroom">Bedroom</a>
             <a class="nav" href="#master.bathroom">Bathroom</a>
@@ -148,7 +147,6 @@
           </div>
         </div>
         <div id="lighting" class="page" hidden="true">
-          <a name="lighting"><h1>Lighting</h1></a>
           <div id="lighting.nav">
             <a class="nav" href="#lighting.schemes">Schemes</a>
             <a class="nav" href="#lighting.loads">Loads</a>

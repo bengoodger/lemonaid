@@ -89,11 +89,35 @@
     deviceName: "",
     ready: function() {
       this.shadowRoot.addEventListener("click", this.handleClick.bind(this), false);
+      window.addEventListener("keydown", this.handleKeyDown.bind(this), false);
     },
     handleClick: function(event) {
-      var commandName = this.deviceName + "." + event.target.id;
+      this.sendCommand(event.target.id);
+    },
+    handleKeyDown: function(event) {
+      this.sendCommand(this.keyCodeToCommandId(event.keyCode));
+    },
+    sendCommand: function(command) {
+      var commandName = this.deviceName + "." + command;
       console.log("lemonaid-tivo > emit: " + commandName);
-      window.socket.emit("DeviceEvent", commandName);
+      window.socket.emit("DeviceEvent", commandName);      
+    },
+    keyCodeToCommandId: function(keyCode) {
+      switch (event.keyCode) {
+        case 37:  // left
+          return "Left";
+        case 39:  // right
+          return "Right";
+        case 38:  // up
+          return "Up";
+        case 40:  // down
+          return "Down";
+        case 32:  // spacebar
+          return "Play";
+        case 13:  // enter
+          return "Select";
+      }
+      return null;
     }
   });
   

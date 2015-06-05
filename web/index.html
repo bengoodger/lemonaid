@@ -72,15 +72,13 @@
             <a class="nav" href="#livingroom.tv">TV</a>
             <a class="nav" href="#livingroom.game">PS4</a>
             <a class="nav" href="#livingroom.bluray">Blu-Ray</a>
-            <a class="nav" href="#livingroom.chromecast">Chromecast</a>
-            <a class="nav" href="#livingroom.lighting">Lighting</a>
-            <a class="nav" href="#livingroom.devices">Devices</a>
           </div>
           <div id="livingroom.tv" class="page">
-            <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">Watch TV</button>
-            <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie Night</button>
+            <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">TV</button>
+            <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie</button>
+            <button id="watchchromecast" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchChromecast');">Chromecast</button>
             <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
-            Lights:
+            <br>Lights:
             <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsOn');">On</button>
             <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.KitchenOn');">Kitchen</button>
             <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsDim');">Dim</button>
@@ -100,49 +98,6 @@
           <div id="livingroom.bluray" class="page" hidden="true">
             <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
             <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
-          </div>
-          <div id="livingroom.chromecast" class="page" hidden="true">
-            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
-            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
-          </div>
-          <div id="livingroom.lighting" class="page" hidden="true">
-            <h3>Living Room</h3>
-            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.40 Lutron.FamilyRoomChandelier.50">Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.90 Lutron.FamilyRoomChandelier.90">Bright</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.FamilyRoomRecessed.Off Lutron.FamilyRoomChandelier.Off">Off</lemonaid-lutron-scheme>
-            <h3>Kitchen</h3>
-            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.0 Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.25 Lutron.KitchenCabinets.Off">Super Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.50 Lutron.KitchenRecessed.40 Lutron.KitchenIslandPendants.60 Lutron.KitchenCabinets.40">Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.90 Lutron.KitchenRecessed.90 Lutron.KitchenIslandPendants.90 Lutron.KitchenCabinets.90">Bright</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.KitchenSinkAndNook.Off Lutron.KitchenRecessed.Off Lutron.KitchenIslandPendants.Off Lutron.KitchenCabinets.Off">Off</lemonaid-lutron-scheme>
-            <h3>Dining Room</h3>
-            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.50 Lutron.DiningRoomRecessed.40 Lutron.DiningRoomCove.50">Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.90 Lutron.DiningRoomRecessed.90 Lutron.DiningRoomCove.90">Bright</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.DiningRoomChandelier.Off Lutron.DiningRoomRecessed.Off Lutron.DiningRoomCove.Off">Off</lemonaid-lutron-scheme>
-            <h3>Foyer</h3>
-            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.50 Lutron.FoyerSconces.50">Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.90 Lutron.FoyerSconces.90">Bright</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.FoyerPendants.Off Lutron.FoyerSconces.Off">Off</lemonaid-lutron-scheme>
-          </div>
-          <div id="livingroom.devices" class="page" hidden="true">
-            <div id="livingroom.devices.nav">
-              ....
-              <a class="nav" href="#livingroom.devices.tv">TV</a>
-              <a class="nav" href="#livingroom.devices.receiver">Receiver</a>
-              <a class="nav" href="#livingroom.devices.tivo">Tivo</a>
-              <a class="nav" href="#livingroom.devices.bluray">Blu-Ray</a>
-            </div>
-            <div id="livingroom.devices.tv" class="page">
-              <lemonaid-samsung deviceName="FamilyRoomTV" deviceView="true"></lemonaid-samsung>
-            </div>
-            <div id="livingroom.devices.receiver" hidden="true" class="page">
-              <lemonaid-integra deviceName="FamilyRoomReceiver" deviceView="true"></lemonaid-integra>
-            </div>
-            <div id="livingroom.devices.tivo" hidden="true" class="page">
-              <lemonaid-tivo deviceName="FamilyRoomTivo" deviceView="true"></lemonaid-tivo>
-            </div>
-            <div id="livingroom.devices.bluray" hidden="true" class="page">
-            </div>
           </div>
         </div>
         <div id="master" class="page" hidden="true">

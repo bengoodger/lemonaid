@@ -76,7 +76,7 @@ var lutron = route.addDevice({
   type : Lutron,
   name : "Lutron",
   init : {
-    host : "10.1.10.28",
+    host : "10.1.10.34",
     username : "lutron",
     password: "integration",
     devices : {
@@ -138,6 +138,11 @@ var web = route.addDevice({
 
 // Simple map of events to commands.
 route.addEventMap({
+  "Web.FamilyRoom.WatchChromecast" : [
+    "FamilyRoomTV.On",
+    "FamilyRoomReceiver.On",
+    "FamilyRoomReceiver.InputVideo1",
+  ],
   "Web.FamilyRoom.WatchTV" : [
     "FamilyRoomTV.On",
     "FamilyRoomReceiver.On",

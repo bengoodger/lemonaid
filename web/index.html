@@ -110,7 +110,8 @@
           <div id="master.bedroom" class="page">
             <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.WatchTV');">Watch TV</button>
             <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.ChromeCast');">Chromecast</button>
-            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">Master Suite Off</button>
+            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">AV Off</button>
+            <button id="lights-off" onclick="socket.emit('DeviceEvent', 'MasterSuite.LightingOff');">Lights Off</button>
             <lemonaid-tivo deviceName="MasterSuiteTivo"></lemonaid-tivo>
           </div>
           <div id="master.bathroom" class="page" hidden="true">
@@ -152,7 +153,13 @@
             <a class="nav" href="#lighting.loads">Loads</a>
           </div>
           <div id="lighting.schemes" class="page">
-            <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">Sleep</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">ALL Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronHouseOff');">House Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteOff');">Master Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOff');">Ben Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Marissa Off</button>
+
             <button disabled>Entertaining</button>
             <button disabled>Intimate</button>
             <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
@@ -170,11 +177,13 @@
             <lemonaid-lutron-load load="Lutron.DiningRoomRecessed">Recessed</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.DiningRoomCove">Cove &amp; China Cabinet</lemonaid-lutron-load>
             <h3>Kitchen</h3>
-            <lemonaid-lutron-load load="Lutron.KitchenSinkAndNook">Sink &amp; Nook</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.KitchenSink">Sink</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.KitchenRecessed">Recessed</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.KitchenIslandPendants">Island Pendants</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.KitchenCabinets">Cabinets</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.KitchenTable">Table</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MudRoomRecessed">Mud Room</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.LanaiKitchen">Lanai Kitchen</lemonaid-lutron-load>
             <lemonaid-lutron-load load="Lutron.LanaiChandeliers">Lanai Chandeliers</lemonaid-lutron-load>
             <h3>Foyer</h3>
             <lemonaid-lutron-load load="Lutron.FoyerPendants">Pendants</lemonaid-lutron-load><br>
@@ -183,7 +192,10 @@
             <lemonaid-lutron-load load="Lutron.HallwayPendant">Pendant</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.HallwayWallWashers">Art</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.HallwayRecessed">Recessed</lemonaid-lutron-load>
+            <lemonaid-lutron-load load="Lutron.HallwayBuiltin">Built-in</lemonaid-lutron-load>
             <h3>Master Suite</h3>
+            <lemonaid-lutron-load load="Lutron.BenLamp">Ben's Lamp</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.MarissaLamp">Marissa's Lamp</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MasterBedroomRecessed">Recessed</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MasterBedroomCove">Cove</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MasterBedroomChandelier">Chandelier</lemonaid-lutron-load><br>
@@ -192,6 +204,20 @@
             <lemonaid-lutron-load load="Lutron.MasterBathroomShower">Shower</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MasterBathroomFan">Shower Fan</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.MasterBedroomDeck">Deck</lemonaid-lutron-load>
+            <h3>Liam's Room</h3>
+            <lemonaid-lutron-load load="Lutron.LiamRecessed">Recessed</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.LiamFlushmount">Flushmount</lemonaid-lutron-load><br>
+            <h3>Vivian's Room</h3>
+            <lemonaid-lutron-load load="Lutron.VivianRecessed">Recessed</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.VivianFlushmount">Flushmount</lemonaid-lutron-load>
+            <h3>Guest Room</h3>
+            <lemonaid-lutron-load load="Lutron.GuestRoomRecessed">Recessed</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.GuestRoomFlushmount">Flushmount</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.GuestRoomPorch">Porch</lemonaid-lutron-load>
+            <h3>Rumpus Room</h3>
+            <lemonaid-lutron-load load="Lutron.RumpusRoom">Recessed</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.DownstairsHall">Hall</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.RumpusRoomPorch">Porch</lemonaid-lutron-load><br>
           </div>
         </div>      
         <div id="security" class="page" hidden="true">

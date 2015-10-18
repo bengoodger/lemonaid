@@ -242,7 +242,7 @@ route.addEventMap({
     "Lutron.KitchenSink.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
-    "Lutron.KitchenTable.Off"
+    "Lutron.KitchenTable.Off",
     "Lutron.LanaiChandeliers.Off",
     "Lutron.LanaiKitchen.Off",
     "Lutron.FoyerPendants.Off",
@@ -286,7 +286,7 @@ route.addEventMap({
     "Lutron.KitchenSink.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
-    "Lutron.KitchenTable.Off"
+    "Lutron.KitchenTable.Off",
     "Lutron.LanaiChandeliers.Off",
     "Lutron.LanaiKitchen.Off",
     "Lutron.FoyerPendants.Off",

@@ -41,6 +41,10 @@
       if (event.target.id == "VolumeSet") {
         var level = this.shadowRoot.querySelector("#VolumeLevel").value;
         commandName = this.deviceName + ".VolumeSet." + level;
+      } else if (event.target.id.substring(0, 5) == "Input") {
+        commandName = this.deviceName + "." + event.target.id;
+      } else if (event.target.id.substring(0, 5) == "Output") {
+        commandName = this.deviceName + "." + event.target.id;
       }
       console.log("lemonaid-integra > emit: " + commandName);
       window.socket.emit("DeviceEvent", commandName);

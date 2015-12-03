@@ -155,14 +155,11 @@
           <div id="lighting.schemes" class="page">
             <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">ALL Off</button>
             <button onclick="socket.emit('DeviceEvent', 'LutronHouseOff');">House Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button><br>
             <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteOff');">Master Off</button>
             <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOff');">Ben Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Marissa Off</button>
-
-            <button disabled>Entertaining</button>
-            <button disabled>Intimate</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Marissa Off</button><br>
+           <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
           </div>
           <div id="lighting.loads" class="page" hidden="true">
             <h3>Exterior Front</h3>
@@ -218,6 +215,15 @@
             <lemonaid-lutron-load load="Lutron.RumpusRoom">Recessed</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.DownstairsHall">Hall</lemonaid-lutron-load><br>
             <lemonaid-lutron-load load="Lutron.RumpusRoomPorch">Porch</lemonaid-lutron-load><br>
+            <h3>Garage</h3>
+            <lemonaid-lutron-load load="Lutron.Garage">General</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.GarageWorkBench">Work Bench</lemonaid-lutron-load><br>
+            <h3>Blue Room</h3>
+            <lemonaid-lutron-load load="Lutron.BlueRoomrecessed">Recessed</lemonaid-lutron-load><br>
+            <lemonaid-lutron-load load="Lutron.BlueRoomFlushmount">Flushmount</lemonaid-lutron-load><br>
+            <h3>Lego Room</h3>
+            <lemonaid-lutron-load load="Lutron.LegoRoom">Fluorescents</lemonaid-lutron-load><br>
+
           </div>
         </div>      
         <div id="security" class="page" hidden="true">

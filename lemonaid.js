@@ -360,7 +360,7 @@ route.addEventMap({
   "Web.MasterBedroom.WatchTV" : [
     "MasterBedroomTV.On",
     "MasterSuiteReceiver.On",
-    "MasterSuiteReceiver.InputVideo3",
+    "MasterSuiteReceiver.InputVideo7",
     "MasterSuiteTivo.TeleportNowPlaying"
   ],
   "Web.MasterBedroom.ChromeCast" : [

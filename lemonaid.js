@@ -251,6 +251,8 @@ route.addEventMap({
     "Lutron.DiningRoomCove.Off",
     "Lutron.DiningRoomAccent.Off",
     "Lutron.DiningRoomChina.Off",
+    "Lutron.OfficeRecessed.Off",
+    "Lutron.OfficePendant.Off",
     "Lutron.KitchenSink.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
@@ -303,6 +305,8 @@ route.addEventMap({
     "Lutron.DiningRoomCove.Off",
     "Lutron.DiningRoomAccent.Off",
     "Lutron.DiningRoomChina.Off",
+    "Lutron.OfficeRecessed.Off",
+    "Lutron.OfficePendant.Off",
     "Lutron.KitchenSink.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
@@ -356,7 +360,7 @@ route.addEventMap({
   "Web.MasterBedroom.WatchTV" : [
     "MasterBedroomTV.On",
     "MasterSuiteReceiver.On",
-    "MasterSuiteReceiver.InputVideo3",
+    "MasterSuiteReceiver.InputVideo7",
     "MasterSuiteTivo.TeleportNowPlaying"
   ],
   "Web.MasterBedroom.ChromeCast" : [

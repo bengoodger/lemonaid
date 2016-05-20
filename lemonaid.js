@@ -86,7 +86,7 @@ var lutron = route.addDevice({
   type : Lutron,
   name : "Lutron",
   init : {
-    host : "10.1.10.34",
+    host : "10.1.10.38",
     username : "lutron",
     password: "integration",
     devices : {
@@ -189,7 +189,8 @@ route.addEventMap({
     "FamilyRoomReceiver.On",
     "FamilyRoomReceiver.InputVideo2",
     "FamilyRoomTivo.TeleportNowPlaying",
-    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenSink.Off",
+    "Lutron.KitchenTable.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
     "Lutron.KitchenCabinets.Off",
@@ -200,16 +201,20 @@ route.addEventMap({
     "Lutron.FamilyRoomRecessed.Off"
   ],
   "Web.FamilyRoom.LightsDim" : [
+    "Lutron.KitchenTable.Off",
+    "Lutron.KitchenSink.Off",
     "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenCabinets.Off",
     "Lutron.KitchenIslandPendants.Off",
     "Lutron.DiningRoomRecessed.Off",
-    "Lutron.DiningRoomChandelier.25",
+    "Lutron.DiningRoomChandelier.Off",
     "Lutron.DiningRoomCove.Off",
-    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomChandelier.45",
     "Lutron.FamilyRoomRecessed.Off"
   ],
   "Web.FamilyRoom.LightsOff" : [
-    "Lutron.KitchenSinkAndNook.Off",
+    "Lutron.KitchenSink.Off",
+    "Lutron.KitchenTable.Off",
     "Lutron.KitchenRecessed.Off",
     "Lutron.KitchenIslandPendants.Off",
     "Lutron.KitchenCabinets.Off",
@@ -224,7 +229,7 @@ route.addEventMap({
     "Lutron.FamilyRoomRecessed.On"
   ],
   "Web.FamilyRoom.KitchenOn" : [
-    "Lutron.KitchenSinkAndNook.On",
+    "Lutron.KitchenSink.On",
     "Lutron.KitchenRecessed.On",
     "Lutron.KitchenIslandPendants.On",
     "Lutron.KitchenCabinets.On",
@@ -340,7 +345,16 @@ route.addEventMap({
     "Lutron.GuestRoomFlushmount.Off",
     "Lutron.GuestRoomPorch.Off",
   ],
-  "Web.LutronMasterSuiteOff" : [
+  "Web.LutronRoomMasterOn" : [
+    "Lutron.MasterBedroomRecessed.On",
+    "Lutron.MasterBedroomChandelier.On",
+    "Lutron.MasterBedroomCove.On",
+    "Lutron.MasterBedroomDeck.On",
+    "Lutron.MasterBathroomSconces.On",
+    "Lutron.MasterBathroomRecessed.On",
+    "Lutron.MasterBathroomShower.On",
+  ],
+  "Web.LutronRoomMasterOff" : [
     "Lutron.MasterBedroomRecessed.Off",
     "Lutron.MasterBedroomChandelier.Off",
     "Lutron.MasterBedroomCove.Off",
@@ -349,11 +363,128 @@ route.addEventMap({
     "Lutron.MasterBathroomRecessed.Off",
     "Lutron.MasterBathroomShower.Off",
   ],
+  "Web.LutronMasterSuiteBenLampOn" : [
+    "Lutron.BenLamp.On",
+  ],
   "Web.LutronMasterSuiteBenLampOff" : [
     "Lutron.BenLamp.Off",
   ],
+  "Web.LutronMasterSuiteMarissaLampOn" : [
+    "Lutron.MarissaLamp.On",
+  ],
   "Web.LutronMasterSuiteMarissaLampOff" : [
     "Lutron.MarissaLamp.Off",
+  ],
+  "Web.LutronRoomOfficeOn" : [
+    "Lutron.OfficePendant.On",
+    "Lutron.OfficeRecessed.On",
+  ],
+  "Web.LutronRoomOfficeOff" : [
+    "Lutron.OfficePendant.Off",
+    "Lutron.OfficeRecessed.Off",
+  ],
+  "Web.LutronRoomDiningOn" : [
+    "Lutron.DiningRoomChandelier.On",
+    "Lutron.DiningRoomRecessed.On",
+    "Lutron.DiningRoomAccent.On",
+    "Lutron.DiningRoomCove.On",
+    "Lutron.DiningRoomChina.On",
+  ],
+  "Web.LutronRoomDiningOff" : [
+    "Lutron.DiningRoomChandelier.Off",
+    "Lutron.DiningRoomRecessed.Off",
+    "Lutron.DiningRoomAccent.Off",
+    "Lutron.DiningRoomCove.Off",
+    "Lutron.DiningRoomChina.Off",
+  ],
+  "Web.LutronRoomFamilyOn" : [
+    "Lutron.FamilyRoomChandelier.On",
+    "Lutron.FamilyRoomRecessed.On",
+  ],
+  "Web.LutronRoomFamilyOff" : [
+    "Lutron.FamilyRoomChandelier.Off",
+    "Lutron.FamilyRoomRecessed.Off",
+  ],
+  "Web.LutronRoomKitchenOn" : [
+    "Lutron.KitchenCabinets.On",
+    "Lutron.KitchenRecessed.On",
+    "Lutron.KitchenIslandPendants.On",
+    "Lutron.KitchenSink.On",
+    "Lutron.KitchenTable.On",
+  ],
+  "Web.LutronRoomKitchenOff" : [
+    "Lutron.KitchenCabinets.Off",
+    "Lutron.KitchenRecessed.Off",
+    "Lutron.KitchenIslandPendants.Off",
+    "Lutron.KitchenSink.Off",
+    "Lutron.KitchenTable.Off",
+  ],
+  "Web.LutronRoomLanaiOn" : [
+    "Lutron.LanaiChandeliers.On",
+    "Lutron.LanaiKitchen.On",
+  ],
+  "Web.LutronRoomLanaiOff" : [
+    "Lutron.LanaiChandeliers.Off",
+    "Lutron.LanaiKitchen.Off",
+  ],
+  "Web.LutronRoomHallsOn" : [
+    "Lutron.HallwayPendant.On",
+    "Lutron.HallwayBuiltin.On",
+    "Lutron.HallwayWallWashers.On",
+    "Lutron.HallwayRecessed.On",
+    "Lutron.DownstairsHall.On",
+    "Lutron.FoyerPendants.On",
+    "Lutron.FoyerSconces.On",
+  ],
+  "Web.LutronRoomHallsOff" : [
+    "Lutron.HallwayPendant.Off",
+    "Lutron.HallwayBuiltin.Off",
+    "Lutron.HallwayWallWashers.Off",
+    "Lutron.HallwayRecessed.Off",
+    "Lutron.DownstairsHall.Off",
+    "Lutron.FoyerPendants.Off",
+    "Lutron.FoyerSconces.Off",
+  ],
+  "Web.LutronRoomMasterBathOn" : [
+    "Lutron.MasterBathroomSconces.On",
+    "Lutron.MasterBathroomRecessed.On",
+    "Lutron.MasterBathroomShower.On",
+    "Lutron.MasterBathroomFan.On",
+  ],
+  "Web.LutronRoomMasterBathOff" : [
+    "Lutron.MasterBathroomSconces.Off",
+    "Lutron.MasterBathroomRecessed.Off",
+    "Lutron.MasterBathroomShower.Off",
+    "Lutron.MasterBathroomFan.Off",
+  ],
+  "Web.LutronCompany" : [
+    "Lutron.FrontDoorSconces.On",
+    "Lutron.FrontPorchPendants.On",
+    "Lutron.FoyerSconces.On",
+    "Lutron.FoyerPendants.On",
+    "Lutron.DiningRoomChandelier.On",
+    "Lutron.DiningRoomChina.On",
+    "Lutron.DiningRoomCove.On",
+    "Lutron.DiningRoomRecessed.On",
+    "Lutron.DiningRoomAccent.On",
+    "Lutron.FamilyRoomChandelier.On",
+    "Lutron.FamilyRoomRecessed.On",
+    "Lutron.KitchenIslandPendants.On",
+    "Lutron.KitchenRecessed.On",
+    "Lutron.KitchenSink.On",
+    "Lutron.KitchenCabinets.On",
+    "Lutron.KitchenTable.On",
+  ],
+  "Web.LutronOutsideOn" : [
+    "Lutron.FrontDoorSconces.On",
+    "Lutron.FrontPorchPendants.On",
+    "Lutron.LanaiChandeliers.On",
+    "Lutron.LanaiKitchen.On",
+    "Lutron.MudRoomPorch.On",
+    "Lutron.FamilyRoomPorch.On",
+    "Lutron.RumpusRoomPorch.On",
+    "Lutron.MasterBedroomDeck.On",
+    "Lutron.GuestRoomPorch.On",
   ],
 
   //  Hard-coded web switches for media (TV/Speakers)

@@ -350,9 +350,12 @@ route.addEventMap({
     "Lutron.MasterBedroomChandelier.On",
     "Lutron.MasterBedroomCove.On",
     "Lutron.MasterBedroomDeck.On",
-    "Lutron.MasterBathroomSconces.On",
-    "Lutron.MasterBathroomRecessed.On",
-    "Lutron.MasterBathroomShower.On",
+  ],
+  "Web.LutronRoomMasterDim" : [
+    "Lutron.MasterBedroomRecessed.Off",
+    "Lutron.MasterBedroomChandelier.45",
+    "Lutron.MasterBedroomCove.Off",
+    "Lutron.MasterBedroomDeck.Off",
   ],
   "Web.LutronRoomMasterOff" : [
     "Lutron.MasterBedroomRecessed.Off",

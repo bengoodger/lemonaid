@@ -154,12 +154,36 @@
           </div>
           <div id="lighting.schemes" class="page">
             <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">ALL Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronHouseOff');">House Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button><br>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteOff');">Master Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOff');">Ben Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Marissa Off</button><br>
-           <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronHouseOff');">House (excl. Guest) Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronCompany');">Company</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronOutsideOn');">All Exterior On</button>
+            <h3>Master</h3>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOn');">Master</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOn');">Ben Lamp</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOn');">Marissa Lamp</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Off</button><br>
+            <h3>Rooms</h3>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomKitchenOn');">Kitchen</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomKitchenOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomFamilyOn');">Family</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomFamilyOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomDiningOn');">Dining</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomDiningOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomOfficeOn');">Office</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomOfficeOff');">Off</button><br>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomLanaiOn');">Lanai</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomLanaiOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomHallsOn');">Foyer/Hall</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomHallsOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOn');">Master</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOff');">Off</button> / 
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterBathOn');">Master Bath</button>
+            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterBathOff');">Off</button>
+            <br>
           </div>
           <div id="lighting.loads" class="page" hidden="true">
             <h3>Exterior Front</h3>
@@ -238,6 +262,19 @@
       </div>
     </div>
     <script>
+    function getBgColor(page) {
+      switch (page.id) {
+      case "livingroom":
+        return "#d0d5d2";
+      case "master":
+        return "#a8b3b1";
+      case "lighting":
+        return "yellow";
+      default:
+        break;
+      }
+      return "#FFFFFF";
+    }
     function switchPageTo(page) {
       var pages = document.querySelectorAll(".page");
       var selectedPage = null;
@@ -247,6 +284,8 @@
         if (pages[i].id == page)
           selectedPage = pages[i];
       }
+      var bgColor = getBgColor(selectedPage);
+      document.body.bgColor = bgColor;
 
       var firstSubPage = selectedPage.querySelector(".page");
       if (firstSubPage)

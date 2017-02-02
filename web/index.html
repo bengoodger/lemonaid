@@ -2,36 +2,61 @@
 <head>
 <title>lemonaid</title>
 <style type="text/css">
+
 body {
   font-family: 'Roboto', 'Noto', sans-serif;
   font-size: 14px;
   margin: 0;
-  padding: 24px;
   background-color: var(--paper-grey-50);
 }
+
+.content {
+  padding: 24px;
+}
+
+.self-end {
+  @apply(--layout-self-end);
+}
+
 </style>
+<script type="text/javascript" src="roku_devices.js"></script>
+<script type="text/javascript" src="roku.js"></script>
 <link rel="import" href="bower_components/paper-button/paper-button.html">
 <link rel="import" href="bower_components/paper-card/paper-card.html">
+<link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 </head>
 <body>
-<h1>lemonaid</h1>
+  <paper-toolbar>
+    <paper-tabs selected="0" class="bottom self-end">
+      <paper-tab>HOME</paper-tab>
+      <paper-tab>LIVING ROOM</paper-tab>
+      <paper-tab>MASTER BEDROOM</paper-tab>
+    </paper-tabs>
+  </paper-toolbar>
 
-<paper-card heading="Watch TV" image="assets/header-watch-tv.png">
-  <paper-button raised>TV On</paper-button>
-  <paper-button raised>Chromecast</paper-button>
-  <paper-button raised>Off</paper-button>
-  <div>Roku channels</div>
-  <div id="volume">
+  <div class="content">
+    <paper-card heading="Watch TV" image="assets/header-watch-tv.png">
+      <paper-button raised>TV On</paper-button>
+      <paper-button raised>Chromecast</paper-button>
+      <paper-button raised>Off</paper-button>
+      <div>Roku channels:
+        <div id="roku-apps"></div>
+      </div>
+      <div id="volume">
 
-  </div>
-  <div id="directional">
-  </div>
-  <div id="playback">
-  </div>
-</paper-card>
+      </div>
+      <div id="directional">
+      </div>
+      <div id="playback">
+      </div>
+    </paper-card>
 
-<paper-card heading="Lighting">
-  <h3>Lighting</h3>
-</paper-card>
+    <paper-card heading="Lighting">
+      <h3>Lighting</h3>
+    </paper-card>
+  </div>
+
 </body>
 </html>

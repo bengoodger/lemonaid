@@ -1,317 +1,37 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>lemonaid</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect();
-      socket.on('disconnect', function() {
-        socket.connect();
-      });
-    </script>
-    <link rel="import" href="bower_components/polymer/polymer.html">
-    <link rel="import" href="lemonaid-integra.html">
-    <link rel="import" href="lemonaid-lutron-scheme.html">
-    <link rel="import" href="lemonaid-lutron-load.html">
-    <link rel="import" href="lemonaid-samsung.html">
-    <link rel="import" href="lemonaid-tivo.html">
-    <link rel="stylesheet" href="lemonaid.css">
-    <style>
+<head>
+<title>lemonaid</title>
+<style type="text/css">
+body {
+  font-family: 'Roboto', 'Noto', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 24px;
+  background-color: var(--paper-grey-50);
+}
+</style>
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+</head>
+<body>
+<h1>lemonaid</h1>
 
-    body {
-      zoom: 1.75;
-    }
+<paper-card heading="Watch TV" image="assets/header-watch-tv.png">
+  <paper-button raised>TV On</paper-button>
+  <paper-button raised>Chromecast</paper-button>
+  <paper-button raised>Off</paper-button>
+  <div>Roku channels</div>
+  <div id="volume">
 
-    #menu > .nav {
-      text-decoration: none;
-      color: black;
-      font-size: x-large;
-      font-weight: bold;
-      margin: .3em;
-      background: #DEDEDE;
-      padding: .2em;
-    }
+  </div>
+  <div id="directional">
+  </div>
+  <div id="playback">
+  </div>
+</paper-card>
 
-    .nav[selected] {
-      color: red;
-      font-weight: bold;
-    }
-
-    #menu > .nav[selected] {
-      color: red;
-    }
-
-    #menu {
-      margin-right: 2em;
-    }
-    </style>
-  </head>
-  <body>
-    <!--
-    <google-signin clientId="551180147597-rdkoj20v9tanblk038jj24v3auuq68iv.apps.googleusercontent.com"
-                   scopes="https://www.googleapis.com/auth/plus.me"
-                   cookiePolicy="single_host_origin"
-                   labelSignin="Sign in with Google"></google-signin>
-    -->
-
-    <div class="flex row stretch">
-      <div id="menu" class="flex column stretch justify-start">
-        <a class="nav" href="#livingroom">Living Room</a>
-        <a class="nav" href="#master">Master Suite</a>
-        <a class="nav" href="#lighting">Lighting</a>
-      </div>
-      <div id="content">
-        <div id="home" class="page">
-          <a name="home"><h1>Home</h1></a>
-        </div>
-        <div id="sonos" class="page" hidden="true">
-          <a name="sonos"><h1>Sonos</h1></a>
-        </div>
-        <div id="livingroom" class="page" hidden="true">
-          <div id="livingroom.nav">
-            <a class="nav" href="#livingroom.tv">TV</a>
-            <a class="nav" href="#livingroom.game">PS4</a>
-            <a class="nav" href="#livingroom.bluray">Blu-Ray</a>
-          </div>
-          <div id="livingroom.tv" class="page">
-            <button id="watchtv" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchTV');">TV</button>
-            <button id="watchmovie" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchMovie');">Movie</button>
-            <button id="watchchromecast" onclick="socket.emit('DeviceEvent', 'FamilyRoom.WatchChromecast');">Chromecast</button>
-            <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
-            <br>Lights:
-            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsOn');">On</button>
-            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.KitchenOn');">Kitchen</button>
-            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsDim');">Dim</button>
-            <button id="dimlights" onclick="socket.emit('DeviceEvent', 'FamilyRoom.LightsOff');">Off</button>
-
-            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
-            <lemonaid-tivo deviceName="FamilyRoomTivo">
-              <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
-            </lemonaid-tivo>
-          </div>
-          <div id="livingroom.game" class="page" hidden="true">
-            <button id="playgame" onclick="socket.emit('DeviceEvent', 'FamilyRoom.PlayGame');">Play Game</button>
-            <button id="off" onclick="socket.emit('DeviceEvent', 'FamilyRoom.Off');">Off</button>
-            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
-            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
-          </div>
-          <div id="livingroom.bluray" class="page" hidden="true">
-            <lemonaid-samsung deviceName="FamilyRoomTV"></lemonaid-samsung>
-            <lemonaid-integra deviceName="FamilyRoomReceiver"></lemonaid-integra>
-          </div>
-        </div>
-        <div id="master" class="page" hidden="true">
-          <div id="master.nav">
-            <a class="nav" href="#master.bedroom">Bedroom</a>
-            <a class="nav" href="#master.bathroom">Bathroom</a>
-            <a class="nav" href="#master.lighting">Lighting</a>
-            <a class="nav" href="#master.devices">Devices</a>
-          </div>
-          <div id="master.bedroom" class="page">
-            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.WatchTV');">Watch TV</button>
-            <button id="watchtv-bedroom" onclick="socket.emit('DeviceEvent', 'MasterBedroom.ChromeCast');">Chromecast</button>
-            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">AV Off</button>
-            <button id="lights-off" onclick="socket.emit('DeviceEvent', 'MasterSuite.LightingOff');">Lights Off</button>
-            <lemonaid-tivo deviceName="MasterSuiteTivo"></lemonaid-tivo>
-          </div>
-          <div id="master.bathroom" class="page" hidden="true">
-            <button id="watchtv-bathroom" onclick="socket.emit('DeviceEvent', 'MasterBathroom.WatchTV');">Watch TV</button>
-            <button id="ben-morning-bathroom" onclick="socket.emit('DeviceEvent', 'MasterBathroom.WakeUpBen');">Ben Morning</button>
-            <button id="off" onclick="socket.emit('DeviceEvent', 'MasterSuite.Off');">Master Suite Off</button>
-            <lemonaid-tivo deviceName="MasterSuiteTivo"></lemonaid-tivo>
-          </div>
-          <div id="master.lighting" class="page" hidden="true">
-            <h3>Bedroom</h3>
-            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.0 Lutron.MasterBedroomCove.25 Lutron.MasterBedroomChandelier.50">Sparks</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.50 Lutron.MasterBedroomCove.25 Lutron.MasterBedroomChandelier.50">Chill</lemonaid-lutron-scheme>
-            <lemonaid-lutron-scheme lights="Lutron.MasterBedroomRecessed.75 Lutron.MasterBedroomCove.90 Lutron.MasterBedroomChandelier.90">Normal</lemonaid-lutron-scheme>
-          </div>
-          <div id="master.devices" class="page" hidden="true">
-            <div id="master.devices.nav">
-              <a class="nav" href="#master.devices.receiver">Receiver</a>
-              <a class="nav" href="#master.devices.tivo">Tivo</a>
-              <a class="nav" href="#master.devices.bedroomtv">Bedroom TV</a>
-              <a class="nav" href="#master.devices.bathroomtv">Bathroom TV</a>
-            </div>
-            <div id="master.devices.receiver" class="page">
-              <lemonaid-integra deviceName="MasterSuiteReceiver" deviceView="true"></lemonaid-integra>
-            </div>
-            <div id="master.devices.tivo" class="page" hidden="true">
-              <lemonaid-tivo deviceName="MasterSuiteTivo" deviceView="true"></lemonaid-tivo>
-            </div>
-            <div id="master.devices.bedroomtv" class="page" hidden="true">
-              <lemonaid-samsung deviceName="MasterBedroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
-            </div>
-            <div id="master.devices.bathroomtv" class="page" hidden="true">
-              <lemonaid-samsung deviceName="MasterBathroomTV" deviceView="true" hasAudio="true"></lemonaid-samsung>
-            </div>
-          </div>
-        </div>
-        <div id="lighting" class="page" hidden="true">
-          <div id="lighting.nav">
-            <a class="nav" href="#lighting.schemes">Schemes</a>
-            <a class="nav" href="#lighting.loads">Loads</a>
-          </div>
-          <div id="lighting.schemes" class="page">
-            <button onclick="socket.emit('DeviceEvent', 'LutronAllOff');">ALL Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronHouseOff');">House (excl. Guest) Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronGuestOff');">Guest Off</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronNightPath');">Late Night</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronCompany');">Company</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronOutsideOn');">All Exterior On</button>
-            <h3>Master</h3>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOn');">Master</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOn');">Ben Lamp</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteBenLampOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOn');">Marissa Lamp</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronMasterSuiteMarissaLampOff');">Off</button><br>
-            <h3>Rooms</h3>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomKitchenOn');">Kitchen</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomKitchenOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomFamilyOn');">Family</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomFamilyOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomDiningOn');">Dining</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomDiningOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomOfficeOn');">Office</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomOfficeOff');">Off</button><br>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomLanaiOn');">Lanai</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomLanaiOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomHallsOn');">Foyer/Hall</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomHallsOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOn');">Master</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterOff');">Off</button> / 
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterBathOn');">Master Bath</button>
-            <button onclick="socket.emit('DeviceEvent', 'LutronRoomMasterBathOff');">Off</button>
-            <br>
-          </div>
-          <div id="lighting.loads" class="page" hidden="true">
-            <h3>Exterior Front</h3>
-            <lemonaid-lutron-load load="Lutron.FrontPorchPendants">Front Porch Pendants</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.FrontDoorSconces">Front Door Sconces</lemonaid-lutron-load>
-            <h3>Family Room</h3>
-            <lemonaid-lutron-load load="Lutron.FamilyRoomRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.FamilyRoomChandelier">Chandelier</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.FamilyRoomPorch">Porch</lemonaid-lutron-load>
-            <h3>Dining Room</h3>
-            <lemonaid-lutron-load load="Lutron.DiningRoomChandelier">Chandelier</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.DiningRoomRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.DiningRoomCove">Cove</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.DiningRoomAccent">Accent</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.DiningRoomChina">China Cabinet</lemonaid-lutron-load>
-            <h3>Office</h3>
-            <lemonaid-lutron-load load="Lutron.OfficePendant">Pendant</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.OfficeRecessed">Recessed</lemonaid-lutron-load><br>            
-            <h3>Kitchen</h3>
-            <lemonaid-lutron-load load="Lutron.KitchenSink">Sink</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.KitchenRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.KitchenIslandPendants">Island Pendants</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.KitchenCabinets">Cabinets</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.KitchenTable">Table</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MudRoomRecessed">Mud Room</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MudRoomPorch">Service Porch</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.LanaiKitchen">Lanai Kitchen</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.LanaiChandeliers">Lanai Chandeliers</lemonaid-lutron-load>
-            <h3>Foyer</h3>
-            <lemonaid-lutron-load load="Lutron.FoyerPendants">Pendants</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.FoyerSconces">Sconces</lemonaid-lutron-load>
-            <h3>Hallway</h3>
-            <lemonaid-lutron-load load="Lutron.HallwayPendant">Pendant</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.HallwayWallWashers">Art</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.HallwayRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.HallwayBuiltin">Built-in</lemonaid-lutron-load>
-            <h3>Master Suite</h3>
-            <lemonaid-lutron-load load="Lutron.BenLamp">Ben's Lamp</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MarissaLamp">Marissa's Lamp</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBedroomRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBedroomCove">Cove</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBedroomChandelier">Chandelier</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBathroomSconces">Vanity Sconces</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBathroomRecessed">Bathroom</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBathroomShower">Shower</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBathroomFan">Shower Fan</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.MasterBedroomDeck">Deck</lemonaid-lutron-load>
-            <h3>Liam's Room</h3>
-            <lemonaid-lutron-load load="Lutron.LiamRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.LiamFlushmount">Flushmount</lemonaid-lutron-load><br>
-            <h3>Vivian's Room</h3>
-            <lemonaid-lutron-load load="Lutron.VivianRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.VivianFlushmount">Flushmount</lemonaid-lutron-load>
-            <h3>Guest Room</h3>
-            <lemonaid-lutron-load load="Lutron.GuestRoomRecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.GuestRoomFlushmount">Flushmount</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.GuestRoomPorch">Porch</lemonaid-lutron-load>
-            <h3>Rumpus Room</h3>
-            <lemonaid-lutron-load load="Lutron.RumpusRoom">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.DownstairsHall">Hall</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.RumpusRoomPorch">Porch</lemonaid-lutron-load><br>
-            <h3>Garage</h3>
-            <lemonaid-lutron-load load="Lutron.Garage">General</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.GarageWorkBench">Work Bench</lemonaid-lutron-load><br>
-            <h3>Blue Room</h3>
-            <lemonaid-lutron-load load="Lutron.BlueRoomrecessed">Recessed</lemonaid-lutron-load><br>
-            <lemonaid-lutron-load load="Lutron.BlueRoomFlushmount">Flushmount</lemonaid-lutron-load><br>
-            <h3>Lego Room</h3>
-            <lemonaid-lutron-load load="Lutron.LegoRoom">Fluorescents</lemonaid-lutron-load><br>
-
-          </div>
-        </div>      
-        <div id="security" class="page" hidden="true">
-          <a name="security"><h1>Security</h1></a>
-        </div>
-      </div>
-    </div>
-    <script>
-    function getBgColor(page) {
-      switch (page.id) {
-      case "livingroom":
-        return "#d0d5d2";
-      case "master":
-        return "#a8b3b1";
-      case "lighting":
-        return "yellow";
-      default:
-        break;
-      }
-      return "#FFFFFF";
-    }
-    function switchPageTo(page) {
-      var pages = document.querySelectorAll(".page");
-      var selectedPage = null;
-      for (var i = 0; i < pages.length; ++i) {
-        var isParent = page.substring(0, pages[i].id.length) == pages[i].id;
-        pages[i].hidden = !isParent && pages[i].id != page;
-        if (pages[i].id == page)
-          selectedPage = pages[i];
-      }
-      var bgColor = getBgColor(selectedPage);
-      document.body.bgColor = bgColor;
-
-      var firstSubPage = selectedPage.querySelector(".page");
-      if (firstSubPage)
-        window.location.href = "#" + firstSubPage.id;
-      
-      var navLinks = document.querySelectorAll(".nav");
-      for (var i = 0; i < navLinks.length; ++i) {
-        var ref = new URL(navLinks[i].href).hash.substring(1);
-        var isParent = page.substring(0, ref.length) == ref;
-        if (ref == page || isParent)
-          navLinks[i].setAttribute("selected", true);
-        else
-          navLinks[i].removeAttribute("selected");
-      }
-    }
-
-    function switchPageToRef() {
-      switchPageTo(window.location.hash == "" ? "home" :
-          window.location.hash.substring(1));
-    }
-
-    window.addEventListener("hashchange", function (event) {
-      switchPageToRef();
-    }, false);
-
-    switchPageToRef();
-    </script>
-  </body>
+<paper-card heading="Lighting">
+  <h3>Lighting</h3>
+</paper-card>
+</body>
 </html>

@@ -1,0 +1,55 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
+<link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="lighting-header">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style>
+      .container {
+        @apply(--layout-horizontal);
+        @apply(--layout-no-wrap);
+        @apply(--layout-center);
+        padding: 16px;
+      }
+
+      #label {
+        width: 15em;
+        @apply(--paper-font-menu);
+      }
+    </style>
+
+    <div class="container">
+      <div id="label"></div>
+      <div id="toggle">
+        <paper-toggle-button></paper-toggle-button>
+      </div>
+      <div id="content" class="flex">
+        <paper-radio-group selected="normal">
+          <paper-radio-button name="normal">Normal</paper-radio-button>
+          <paper-radio-button name="dim">Dim</paper-radio-button>
+          <paper-radio-button name="movie">Movie</paper-radio-button>
+        </paper-radio-group>
+      </div>
+      <iron-icon icon="icons:expand-more"></iron-icon>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lighting-header',
+      properties: {
+        label: String
+      },
+
+      ready: function() {
+        this.$.label.textContent = this.label;
+      }
+    });
+  </script>
+</dom-module>

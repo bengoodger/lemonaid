@@ -18,6 +18,10 @@ body {
   @apply(--layout-self-end);
 }
 
+#lightinglist {
+  width: 50em;
+}
+
 iron-list {
   height: 25vh;
 }
@@ -34,6 +38,7 @@ iron-list {
 <link rel="import" href="bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="bower_components/iron-list/iron-list.html">
+<link rel="import" href="lighting-header.html">
 </head>
 <body>
   <paper-toolbar>
@@ -60,6 +65,12 @@ iron-list {
       <div id="playback">
       </div>
     </paper-card>
+<br><br><br>
+    <paper-card heading="Lighting" id="lightinglist">
+      <paper-button raised class="red">All Off</paper-button>
+      <lighting-header label="Living Room"></lighting-header>
+    </paper-card>
+<br><br><br>
 
     <paper-card heading="Lighting">
       <iron-list id="lighting">
